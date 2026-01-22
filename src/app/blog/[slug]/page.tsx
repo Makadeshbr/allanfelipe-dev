@@ -1,8 +1,9 @@
 import { Header, Footer } from '@/components';
 import { blogPosts } from '@/data/blog-posts';
 import { notFound } from 'next/navigation';
-import { Calendar, Clock, ArrowLeft, Share2, Linkedin, Twitter } from 'lucide-react';
+import { Calendar, Clock, ArrowLeft, Linkedin, Twitter } from 'lucide-react';
 import Link from 'next/link';
+import { marked } from 'marked';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -37,50 +38,14 @@ function formatDate(dateString: string) {
   });
 }
 
-function parseMarkdown(markdown: string): string {
-  return markdown
-    // Headers
-    .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-    .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-    .replace(/^# (.*$)/gm, '<h1>$1</h1>')
-    // Bold
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    // Italic
-    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-    // Code inline
-    .replace(/`(.*?)`/g, '<code>$1</code>')
-    // Links
-    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>')
-    // Tables
-    .replace(/^\| (.*) \|$/gm, (match, content) => {
-      const cells = content.split(' | ');
-      const isHeader = markdown.split('\n').findIndex(line => line === match) ===
-        markdown.split('\n').findIndex(line => line.includes('|---'));
-      if (match.includes('---')) return '';
-      const cellTag = isHeader ? 'th' : 'td';
-      return `<tr>${cells.map((cell: string) => `<${cellTag}>${cell.trim()}</${cellTag}>`).join('')}</tr>`;
-    })
-    // Unordered lists
-    .replace(/^- (.*$)/gm, '<li>$1</li>')
-    // Ordered lists
-    .replace(/^\d+\. (.*$)/gm, '<li>$1</li>')
-    // Wrap li in ul/ol (simplified)
-    .replace(/(<li>.*<\/li>\n?)+/g, (match) => {
-      return `<ul>${match}</ul>`;
-    })
-    // Red flags (🚩)
-    .replace(/🚩/g, '<span class="text-red-500">🚩</span>')
-    // Paragraphs (lines that don't start with HTML)
-    .replace(/^(?!<[a-z])(.*[^\n])$/gm, (match) => {
-      if (match.trim() === '') return '';
-      if (match.startsWith('<')) return match;
-      return `<p>${match}</p>`;
-    })
-    // Clean up empty paragraphs
-    .replace(/<p><\/p>/g, '')
-    // Add spacing
-    .replace(/<\/h2>/g, '</h2>\n')
-    .replace(/<\/h3>/g, '</h3>\n');
+function renderMarkdown(content: string): string {
+  // Configure marked for better output
+  marked.setOptions({
+    breaks: true,
+    gfm: true,
+  });
+
+  return marked.parse(content) as string;
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
@@ -140,7 +105,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             {/* Content */}
             <div className="prose prose-lg max-w-none prose-headings:font-display prose-headings:font-bold prose-headings:text-[#1A1A1A] prose-p:text-[#6B6B6B] prose-p:leading-relaxed prose-strong:text-[#1A1A1A] prose-a:text-[#0D9488] prose-a:no-underline hover:prose-a:underline prose-code:bg-[#F3F3F0] prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-[#1A1A1A] prose-code:before:content-none prose-code:after:content-none prose-ul:text-[#6B6B6B] prose-ol:text-[#6B6B6B] prose-li:marker:text-[#0D9488] prose-table:border-collapse prose-th:bg-[#F3F3F0] prose-th:p-3 prose-th:text-left prose-th:font-mono prose-th:text-sm prose-td:p-3 prose-td:border-t prose-td:border-black/10">
               {post.content ? (
-                <div dangerouslySetInnerHTML={{ __html: parseMarkdown(post.content) }} />
+                <div dangerouslySetInnerHTML={{ __html: renderMarkdown(post.content) }} />
               ) : (
                 <div className="bg-[#F3F3F0] border border-black/5 p-8 lg:p-12 text-center">
                   <p className="text-[#6B6B6B] mb-4">
