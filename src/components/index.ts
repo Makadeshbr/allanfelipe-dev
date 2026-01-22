@@ -1,0 +1,10 @@
+export { Logo } from './Logo';
+export { Header } from './Header';
+export { Hero } from './Hero';
+export { Services } from './Services';
+export { Projects } from './Projects';
+export { Results } from './Results';
+export { About } from './About';
+export { BlogPreview } from './Blog';
+export { Contact } from './Contact';
+export { Footer } from './Footer';
