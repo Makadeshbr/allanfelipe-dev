@@ -1,5 +1,5 @@
 import { Header, Footer } from '@/components';
-import { blogPosts } from '@/components/Blog';
+import { blogPosts } from '@/data/blog-posts';
 import { notFound } from 'next/navigation';
 import { Calendar, Clock, ArrowLeft, Share2, Linkedin, Twitter } from 'lucide-react';
 import Link from 'next/link';
