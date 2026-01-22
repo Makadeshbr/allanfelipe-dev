@@ -137,7 +137,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
     >
       <div className="relative bg-[#F3F3F0] rounded-lg overflow-hidden border border-black/5 hover:border-[#0D9488]/30 hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.12)] transition-all duration-500">
         {/* Project Image Area */}
-        <div className="relative aspect-[16/10] overflow-hidden flex items-center justify-center">
+        <div className="relative aspect-[4/3] sm:aspect-[16/10] overflow-hidden flex items-center justify-center">
           {/* Background gradient */}
           <div
             className="absolute inset-0"
@@ -148,16 +148,16 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
 
           {project.isMobile ? (
             /* Mobile Mockup with Carousel */
-            <div className="relative z-10 py-4 px-16">
-              {/* Phone Frame - MUCH LARGER */}
-              <div className="relative mx-auto w-64 bg-[#1A1A1A] rounded-[3rem] p-3 shadow-2xl">
+            <div className="relative z-10 py-4 px-8 sm:px-16">
+              {/* Phone Frame - Responsive size */}
+              <div className="relative mx-auto w-36 sm:w-48 md:w-64 bg-[#1A1A1A] rounded-[2rem] sm:rounded-[3rem] p-2 sm:p-3 shadow-2xl">
                 {/* Dynamic Island / Notch */}
-                <div className="absolute top-5 left-1/2 -translate-x-1/2 w-24 h-7 bg-[#1A1A1A] rounded-full z-20" />
+                <div className="absolute top-3 sm:top-5 left-1/2 -translate-x-1/2 w-16 sm:w-24 h-5 sm:h-7 bg-[#1A1A1A] rounded-full z-20" />
 
                 {/* Screen */}
-                <div className="bg-white rounded-[2.5rem] overflow-hidden relative">
+                <div className="bg-white rounded-[1.5rem] sm:rounded-[2.5rem] overflow-hidden relative">
                   {/* Status bar area */}
-                  <div className="h-10 bg-[#1A1A1A]" />
+                  <div className="h-6 sm:h-10 bg-[#1A1A1A]" />
 
                   {/* App Screen - Image goes here */}
                   <div className="relative aspect-[9/16] overflow-hidden">
@@ -166,13 +166,13 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
                       alt={`${project.title} - Tela ${currentImageIndex + 1}`}
                       fill
                       className="object-cover object-top"
-                      sizes="256px"
+                      sizes="(max-width: 640px) 144px, (max-width: 768px) 192px, 256px"
                     />
                   </div>
 
                   {/* Home indicator */}
-                  <div className="h-8 bg-white flex items-center justify-center">
-                    <div className="w-28 h-1.5 bg-[#1A1A1A] rounded-full" />
+                  <div className="h-5 sm:h-8 bg-white flex items-center justify-center">
+                    <div className="w-16 sm:w-28 h-1 sm:h-1.5 bg-[#1A1A1A] rounded-full" />
                   </div>
                 </div>
               </div>
@@ -183,33 +183,33 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
                   {/* Left Arrow */}
                   <button
                     onClick={(e) => { e.preventDefault(); e.stopPropagation(); prevImage(); }}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 z-30 p-3 bg-white rounded-full shadow-xl hover:bg-[#0D9488] hover:text-white transition-all duration-300 cursor-pointer"
+                    className="absolute left-0 sm:left-2 top-1/2 -translate-y-1/2 z-30 p-2 sm:p-3 bg-white rounded-full shadow-xl hover:bg-[#0D9488] hover:text-white transition-all duration-300 cursor-pointer"
                     type="button"
                     aria-label="Imagem anterior"
                   >
-                    <ChevronLeft className="w-6 h-6" />
+                    <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" />
                   </button>
 
                   {/* Right Arrow */}
                   <button
                     onClick={(e) => { e.preventDefault(); e.stopPropagation(); nextImage(); }}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 z-30 p-3 bg-white rounded-full shadow-xl hover:bg-[#0D9488] hover:text-white transition-all duration-300 cursor-pointer"
+                    className="absolute right-0 sm:right-2 top-1/2 -translate-y-1/2 z-30 p-2 sm:p-3 bg-white rounded-full shadow-xl hover:bg-[#0D9488] hover:text-white transition-all duration-300 cursor-pointer"
                     type="button"
                     aria-label="Próxima imagem"
                   >
-                    <ChevronRight className="w-6 h-6" />
+                    <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6" />
                   </button>
 
                   {/* Dots indicator */}
-                  <div className="flex justify-center gap-3 mt-6">
+                  <div className="flex justify-center gap-2 sm:gap-3 mt-4 sm:mt-6">
                     {project.images.map((_, idx) => (
                       <button
                         key={idx}
                         onClick={(e) => { e.preventDefault(); setCurrentImageIndex(idx); }}
                         type="button"
-                        className={`h-3 rounded-full transition-all duration-300 cursor-pointer ${idx === currentImageIndex
-                          ? 'bg-[#0D9488] w-8'
-                          : 'bg-[#1A1A1A]/30 w-3 hover:bg-[#1A1A1A]/50'
+                        className={`h-2 sm:h-3 rounded-full transition-all duration-300 cursor-pointer ${idx === currentImageIndex
+                          ? 'bg-[#0D9488] w-5 sm:w-8'
+                          : 'bg-[#1A1A1A]/30 w-2 sm:w-3 hover:bg-[#1A1A1A]/50'
                           }`}
                         aria-label={`Ir para imagem ${idx + 1}`}
                       />
@@ -325,45 +325,45 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
         </div>
 
         {/* Project Info */}
-        <div className="p-6 lg:p-8 bg-white">
-          <div className="flex items-start justify-between gap-4 mb-4">
+        <div className="p-4 sm:p-6 lg:p-8 bg-white">
+          <div className="flex items-start justify-between gap-2 sm:gap-4 mb-3 sm:mb-4">
             <div>
-              <span className="font-mono text-xs text-[#0D9488] mb-1 block">
+              <span className="font-mono text-[10px] sm:text-xs text-[#0D9488] mb-1 block">
                 {project.subtitle}
               </span>
-              <h3 className="font-display text-xl lg:text-2xl font-bold text-[#1A1A1A]">
+              <h3 className="font-display text-lg sm:text-xl lg:text-2xl font-bold text-[#1A1A1A]">
                 {project.title}
               </h3>
             </div>
             {project.featured && (
-              <span className="px-3 py-1 bg-[#0D9488]/10 font-mono text-xs text-[#0D9488]">
+              <span className="px-2 sm:px-3 py-1 bg-[#0D9488]/10 font-mono text-[10px] sm:text-xs text-[#0D9488] whitespace-nowrap">
                 Destaque
               </span>
             )}
           </div>
 
-          <p className="text-[#6B6B6B] leading-relaxed mb-6">
+          <p className="text-sm sm:text-base text-[#6B6B6B] leading-relaxed mb-4 sm:mb-6">
             {project.description}
           </p>
 
           {/* Stats */}
-          <div className="flex gap-8 mb-6">
+          <div className="flex gap-4 sm:gap-8 mb-4 sm:mb-6">
             {project.stats.map((stat) => (
               <div key={stat.label}>
-                <span className="block font-display text-2xl font-bold text-[#1A1A1A]">
+                <span className="block font-display text-xl sm:text-2xl font-bold text-[#1A1A1A]">
                   {stat.value}
                 </span>
-                <span className="text-sm text-[#A1A1A1]">{stat.label}</span>
+                <span className="text-xs sm:text-sm text-[#A1A1A1]">{stat.label}</span>
               </div>
             ))}
           </div>
 
           {/* Tags */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1 bg-[#F3F3F0] font-mono text-xs text-[#6B6B6B]"
+                className="px-2 sm:px-3 py-1 bg-[#F3F3F0] font-mono text-[10px] sm:text-xs text-[#6B6B6B]"
               >
                 {tag}
               </span>
