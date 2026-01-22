@@ -8,3 +8,5 @@ export { About } from './About';
 export { BlogPreview } from './Blog';
 export { Contact } from './Contact';
 export { Footer } from './Footer';
+export { WhatsAppWidget } from './WhatsAppWidget';
+

@@ -30,8 +30,8 @@ const projects = [
     description:
       'Aplicativo completo para gestão de fretes e logística. Conecta motoristas a cargas disponíveis com rastreamento em tempo real.',
     image: '/rotafrete.png',
-    images: rotafreteImages, // Array de imagens para carrossel
-    isMobile: true, // Flag para identificar projeto mobile
+    images: rotafreteImages,
+    isMobile: true,
     tags: ['React Native', 'Node.js', 'PostgreSQL', 'Maps API'],
     color: '#0D9488',
     stats: [
@@ -39,7 +39,7 @@ const projects = [
       { label: 'Fretes realizados', value: '2.5k' },
     ],
     links: {
-      live: '#',
+      live: 'https://github.com/Makadeshbr/rotafrete-downloads/releases/tag/v2.0',
       github: null,
     },
     featured: true,
@@ -51,7 +51,7 @@ const projects = [
     description:
       'Plataforma BaaS própria que acelera o desenvolvimento de aplicações. Autenticação, banco de dados, storage e mais — em uma única solução.',
     image: '/aether.png',
-    images: aetherImages, // Array de imagens para carrossel
+    images: aetherImages,
     isMobile: false,
     tags: ['Hono', 'Drizzle ORM', 'PostgreSQL', 'TypeScript SDK'],
     color: '#0D9488',
@@ -60,26 +60,26 @@ const projects = [
       { label: 'Uptime', value: '99.9%' },
     ],
     links: {
-      live: '#',
+      live: 'https://aether-admin-coral.vercel.app/',
       github: 'https://github.com/Makadeshbr',
     },
     featured: true,
   },
   {
     id: 3,
-    title: 'Landing Page SaaS',
-    subtitle: 'Site Institucional',
+    title: 'Pedágio Premium',
+    subtitle: 'PWA com IA',
     description:
-      'Landing page de alta conversão para produto SaaS. Design moderno, animações suaves e otimização para SEO.',
+      'Aplicativo PWA para análise inteligente de pedágios com IA. Calcula rotas otimizadas e custos de viagem com precisão.',
     image: '/saas-landing.png',
-    tags: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
+    tags: ['PWA', 'Firebase', 'IA', 'Maps API'],
     color: '#0D9488',
     stats: [
-      { label: 'Taxa de conversão', value: '+35%' },
-      { label: 'Performance', value: '98/100' },
+      { label: 'Análises por IA', value: '100%' },
+      { label: 'Performance', value: '95/100' },
     ],
     links: {
-      live: '#',
+      live: 'https://pwa-pedagio-premium.web.app/',
       github: null,
     },
     featured: false,

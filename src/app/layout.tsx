@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { WhatsAppWidget } from '@/components';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://allanfelipef.dev'),
   title: 'Allan Felipe | Desenvolvedor Full Stack & Mobile',
   description:
     'Desenvolvimento de landing pages, sites, aplicativos mobile e automações. Transformo ideias em produtos digitais que funcionam.',
@@ -17,12 +19,12 @@ export const metadata: Metadata = {
     'freelancer',
     'brasil',
   ],
-  authors: [{ name: 'Allan Felipe', url: 'https://allanfelipe.dev' }],
+  authors: [{ name: 'Allan Felipe', url: 'https://allanfelipef.dev' }],
   creator: 'Allan Felipe',
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
-    url: 'https://allanfelipe.dev',
+    url: 'https://allanfelipef.dev',
     siteName: 'Allan Felipe - Dev',
     title: 'Allan Felipe | Desenvolvedor Full Stack & Mobile',
     description:
@@ -63,7 +65,11 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#0D9488" />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {children}
+        <WhatsAppWidget />
+      </body>
     </html>
   );
 }
+
