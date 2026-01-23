@@ -112,29 +112,9 @@ section {
   display: block;
 }
 
-/* Sections com padding vertical */
-section[id] {
-  padding-top: var(--spacing-4xl);
-  padding-bottom: var(--spacing-4xl);
-}
+/* Section default padding removed to allow component control */
 
-@media (min-width: 1024px) {
-  section[id] {
-    padding-top: 10rem;
-    /* 160px */
-    padding-bottom: 10rem;
-  }
-}
-
-/* Header fixo */
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  z-index: 50;
-}
+/* Header global rule removed to avoid conflict with blog post headers */
 
 /* ============================================
    TYPOGRAPHY
@@ -433,14 +413,12 @@ section.min-h-screen {
    ============================================ */
 
 /* Cards de serviço */
-article,
+/* Article global padding removed */
 .group {
   padding: var(--spacing-lg);
 }
 
 @media (min-width: 1024px) {
-
-  article,
   .group[class*="p-8"] {
     padding: 2.5rem;
   }
