@@ -1,49 +1,53 @@
+/**
+ * ============================================
+ * ROOT LAYOUT - Complete Edition
+ * ============================================
+ * 
+ * Layout com todos os providers e componentes:
+ * - PageLoader
+ * - PageTransition
+ * - CustomCursor
+ * - Header/Footer
+ */
+
 import type { Metadata } from 'next';
+import { Header, Footer } from '@/components/layout';
+import { SmoothScrollProvider, CustomCursor, PageTransition, PageLoader } from '@/components/ui';
 import './globals.css';
-import { WhatsAppWidget } from '@/components';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://allanfelipef.dev'),
-  title: 'Allan Felipe | Desenvolvedor Full Stack & Mobile',
+  title: 'Allan Felipe | Full-Stack Developer',
   description:
-    'Desenvolvimento de landing pages, sites, aplicativos mobile e automações. Transformo ideias em produtos digitais que funcionam.',
+    'Desenvolvedor Full-Stack especializado em React, React Native, Next.js, Node.js e TypeScript. Transformando ideias em experiências digitais extraordinárias.',
   keywords: [
-    'desenvolvedor',
-    'full stack',
-    'react',
+    'desenvolvedor full-stack',
+    'react developer',
     'react native',
     'next.js',
-    'landing page',
-    'aplicativo',
-    'mobile',
+    'node.js',
+    'typescript',
+    'javascript',
     'freelancer',
-    'brasil',
+    'desenvolvimento web',
+    'aplicativos mobile',
   ],
-  authors: [{ name: 'Allan Felipe', url: 'https://allanfelipef.dev' }],
+  authors: [{ name: 'Allan Felipe' }],
   creator: 'Allan Felipe',
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
-    url: 'https://allanfelipef.dev',
-    siteName: 'Allan Felipe - Dev',
-    title: 'Allan Felipe | Desenvolvedor Full Stack & Mobile',
+    url: 'https://allanfelipe.dev',
+    title: 'Allan Felipe | Full-Stack Developer',
     description:
-      'Desenvolvimento de landing pages, sites, aplicativos mobile e automações. Transformo ideias em produtos digitais que funcionam.',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Allan Felipe - Desenvolvedor Full Stack',
-      },
-    ],
+      'Desenvolvedor Full-Stack especializado em criar experiências digitais únicas.',
+    siteName: 'Allan Felipe Dev',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Allan Felipe | Desenvolvedor Full Stack & Mobile',
+    title: 'Allan Felipe | Full-Stack Developer',
     description:
-      'Desenvolvimento de landing pages, sites, aplicativos mobile e automações.',
-    images: ['/og-image.png'],
+      'Desenvolvedor Full-Stack especializado em criar experiências digitais únicas.',
+    creator: '@allanfelipe',
   },
   robots: {
     index: true,
@@ -53,23 +57,24 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="pt-BR" className="scroll-smooth">
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#0D9488" />
-      </head>
-      <body className="antialiased">
-        {children}
-        <WhatsAppWidget />
+    <html lang="pt-BR">
+      <body className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased">
+        {/* Page Loader - First visit only */}
+        <PageLoader />
+
+        <SmoothScrollProvider>
+          <CustomCursor />
+          <Header />
+          <PageTransition>
+            <main>{children}</main>
+          </PageTransition>
+          <Footer />
+        </SmoothScrollProvider>
       </body>
     </html>
   );
 }
-

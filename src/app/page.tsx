@@ -1,50 +1,46 @@
+/**
+ * ============================================
+ * HOME PAGE - Otimizada conforme Auditoria UX
+ * ============================================
+ * 
+ * Estrutura simplificada:
+ * 1. Hero com Showreel
+ * 2. Services Grid
+ * 3. Stats
+ * 4. Featured Cases
+ * 5. Clients (simplificado)
+ * 6. Contact CTA
+ */
+
 import {
-  Header,
   Hero,
   Services,
-  Projects,
-  Results,
-  About,
-  BlogPreview,
-  Contact,
-  Footer
-} from '@/components';
+  Stats,
+  FeaturedCases,
+  Clients,
+  Contact
+} from '@/components/sections';
 
-export default function Home() {
+export default function HomePage() {
   return (
     <>
-      {/* Noise texture overlay para dar textura ao design */}
-      <div className="noise-overlay" />
+      {/* Hero com Showreel */}
+      <Hero />
 
-      {/* Header/Navegação fixo */}
-      <Header />
+      {/* Services Preview */}
+      <Services />
 
-      {/* Conteúdo principal */}
-      <main>
-        {/* Seção Hero - Primeira impressão */}
-        <Hero />
+      {/* Stats - Resultados */}
+      <Stats />
 
-        {/* Seção de Serviços */}
-        <Services />
+      {/* Featured Cases - Grid */}
+      <FeaturedCases />
 
-        {/* Seção de Projetos/Portfólio */}
-        <Projects />
+      {/* Clients - Nichos */}
+      <Clients />
 
-        {/* Seção de Resultados/Métricas */}
-        <Results />
-
-        {/* Seção Sobre */}
-        <About />
-
-        {/* Preview dos últimos artigos do Blog */}
-        <BlogPreview />
-
-        {/* Seção de Contato */}
-        <Contact />
-      </main>
-
-      {/* Footer */}
-      <Footer />
+      {/* Contact CTA */}
+      <Contact />
     </>
   );
 }
