@@ -8,13 +8,13 @@
 
 'use client';
 
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, BezierDefinition } from 'framer-motion';
 import { useRef } from 'react';
 import { Code2, Cpu, Palette, Rocket } from 'lucide-react';
 import { techStack } from '@/data/site-data';
 
 /** Easing dramático */
-const dramaticEase = [0.16, 1, 0.3, 1];
+const dramaticEase: BezierDefinition = [0.16, 1, 0.3, 1];
 
 const capabilities = [
     {
