@@ -120,13 +120,55 @@
         "form": {
             "name": "Your name",
             "email": "Your email",
+            "service": "Project type",
+            "budget": "Estimated budget",
             "message": "Your message",
             "submit": "Send message",
             "sending": "Sending...",
-            "success": "Message sent successfully!",
-            "error": "Error sending. Please try again."
+            "placeholders": {
+                "name": "What represents you?",
+                "email": "your@email.com",
+                "select": "Select...",
+                "message": "Describe your idea, goals and desired timeline..."
+            },
+            "options": {
+                "services": {
+                    "landing": "Landing Page",
+                    "site": "Website / Web System",
+                    "app": "Mobile App",
+                    "automacao": "Automation",
+                    "outro": "Other"
+                },
+                "budget": {
+                    "1k-3k": "$1k - $3k",
+                    "3k-5k": "$3k - $5k",
+                    "5k-10k": "$5k - $10k",
+                    "10k+": "$10k+",
+                    "nao-sei": "Not sure yet"
+                }
+            },
+            "errors": {
+                "nameRequired": "Name is required",
+                "emailRequired": "Email is required",
+                "emailInvalid": "Invalid email",
+                "messageRequired": "Message is required",
+                "messageTooShort": "Message is too short"
+            }
         },
-        "whatsapp": "Prefer WhatsApp?"
+        "success": {
+            "title": "Message sent!",
+            "message": "Thanks for reaching out. I'll review your message and get back to you shortly.",
+            "button": "Send another message"
+        },
+        "info": {
+            "email": "Email",
+            "whatsapp": "WhatsApp",
+            "location": "Location",
+            "responseTime": "Response time",
+            "responseValue": "Up to 24 hours"
+        },
+        "error": "Error sending. Please try again or contact via WhatsApp.",
+        "disclaimer": "I respond within 24 business hours"
     },
     "footer": {
         "tagline": "Creating digital experiences that make a difference.",
