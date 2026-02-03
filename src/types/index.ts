@@ -15,8 +15,11 @@ export interface Project {
     tags: string[];
     category: 'web' | 'mobile' | 'fullstack' | 'landing';
     link?: string;
+    liveUrl?: string; // Alias ou específico para live demo
     github?: string;
+    githubUrl?: string; // Alias ou específico para repo
     featured: boolean;
+    gradient?: string; // Para fallback de imagem
 }
 
 /** Dados de um serviço oferecido */
