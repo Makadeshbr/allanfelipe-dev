@@ -14,9 +14,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ChevronDown, Play } from 'lucide-react';
-import { heroRotatingWords } from '@/data/site-data';
 import { ShowreelModal } from '@/components/ui';
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
@@ -25,6 +25,7 @@ if (typeof window !== 'undefined') {
 export function Hero() {
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [showreelOpen, setShowreelOpen] = useState(false);
+    const { t } = useLanguage();
 
     const containerRef = useRef<HTMLDivElement>(null);
     const headlineRef = useRef<HTMLDivElement>(null);
@@ -32,12 +33,14 @@ export function Hero() {
     const ctaRef = useRef<HTMLDivElement>(null);
     const rotatingRef = useRef<HTMLDivElement>(null);
 
+    const rotatingWords = t('rotatingWords') as string[];
+
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentWordIndex((prev) => (prev + 1) % heroRotatingWords.length);
+            setCurrentWordIndex((prev) => (prev + 1) % rotatingWords.length);
         }, 3000);
         return () => clearInterval(interval);
-    }, []);
+    }, [rotatingWords.length]);
 
     useEffect(() => {
         if (!containerRef.current) return;
@@ -155,7 +158,7 @@ export function Hero() {
                     {/* Tagline */}
                     <div ref={taglineRef} className="overflow-hidden mb-6">
                         <p className="tagline-text text-[var(--accent-primary)] text-sm uppercase tracking-[0.5em] font-medium">
-                            Full-Stack Developer
+                            {t('hero.tagline') as string}
                         </p>
                     </div>
 
@@ -164,17 +167,17 @@ export function Hero() {
                         <h1 className="font-display text-[clamp(2.5rem,7vw,6rem)] font-bold leading-[0.95] tracking-tight">
                             <div className="overflow-hidden">
                                 <span className="headline-line block text-[var(--text-primary)]">
-                                    Branding, Websites
+                                    {t('hero.title.line1') as string}
                                 </span>
                             </div>
                             <div className="overflow-hidden">
                                 <span className="headline-line block text-gradient">
-                                    & Aplicações
+                                    {t('hero.title.line2') as string}
                                 </span>
                             </div>
                             <div className="overflow-hidden">
                                 <span className="headline-line block text-[var(--text-muted)]">
-                                    para projetos digitais.
+                                    {t('hero.title.line3') as string}
                                 </span>
                             </div>
                         </h1>
@@ -195,14 +198,14 @@ export function Hero() {
                                 </motion.div>
                             </div>
                             <span className="text-sm uppercase tracking-widest font-medium">
-                                Check out our showreel
+                                {t('hero.showreel') as string}
                             </span>
                         </button>
                     </div>
 
                     {/* Rotating Words */}
                     <div ref={ctaRef} className="flex flex-wrap items-center gap-3 text-xl md:text-2xl text-[var(--text-secondary)]">
-                        <span>Especializado em</span>
+                        <span>{t('hero.specializedIn') as string}</span>
                         <div className="relative h-12 w-72 overflow-hidden flex items-center" style={{ perspective: '500px' }}>
                             <AnimatePresence mode="wait">
                                 <motion.span
@@ -214,7 +217,7 @@ export function Hero() {
                                     className="absolute text-gradient font-semibold"
                                     style={{ transformStyle: 'preserve-3d' }}
                                 >
-                                    {heroRotatingWords[currentWordIndex]}
+                                    {rotatingWords[currentWordIndex]}
                                 </motion.span>
                             </AnimatePresence>
                         </div>
@@ -231,7 +234,7 @@ export function Hero() {
                     aria-label="Scroll para baixo"
                 >
                     <span className="text-[10px] uppercase tracking-[0.3em] opacity-60 group-hover:opacity-100 transition-opacity">
-                        Scroll
+                        {t('hero.scroll') as string}
                     </span>
                     <motion.div
                         animate={{ y: [0, 10, 0] }}

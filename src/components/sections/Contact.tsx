@@ -15,6 +15,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Send, CheckCircle2, AlertCircle, Mail, MapPin, Clock, Loader2 } from 'lucide-react';
 import { contactInfo } from '@/data/site-data';
+import { useLanguage } from '@/context/LanguageContext';
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
@@ -34,23 +35,12 @@ interface FormErrors {
     message?: string;
 }
 
-const budgetOptions = [
-    { value: '1k-3k', label: 'R$ 1.000 - R$ 3.000' },
-    { value: '3k-5k', label: 'R$ 3.000 - R$ 5.000' },
-    { value: '5k-10k', label: 'R$ 5.000 - R$ 10.000' },
-    { value: '10k+', label: 'Acima de R$ 10.000' },
-    { value: 'nao-sei', label: 'Não sei ainda' },
-];
-
-const serviceOptions = [
-    { value: 'landing', label: 'Landing Page' },
-    { value: 'site', label: 'Site / Sistema Web' },
-    { value: 'app', label: 'Aplicativo Mobile' },
-    { value: 'automacao', label: 'Automação' },
-    { value: 'outro', label: 'Outro' },
-];
+// Opções mapeadas para chaves de tradução
+const budgetOptions = ['1k-3k', '3k-5k', '5k-10k', '10k+', 'nao-sei'];
+const serviceOptions = ['landing', 'site', 'app', 'automacao', 'outro'];
 
 export function Contact() {
+    const { t } = useLanguage();
     const [formData, setFormData] = useState<FormData>({
         name: '',
         email: '',
@@ -112,19 +102,19 @@ export function Contact() {
         const newErrors: FormErrors = {};
 
         if (!formData.name.trim()) {
-            newErrors.name = 'Nome é obrigatório';
+            newErrors.name = t('contact.form.errors.nameRequired') as string;
         }
 
         if (!formData.email.trim()) {
-            newErrors.email = 'Email é obrigatório';
+            newErrors.email = t('contact.form.errors.emailRequired') as string;
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            newErrors.email = 'Email inválido';
+            newErrors.email = t('contact.form.errors.emailInvalid') as string;
         }
 
         if (!formData.message.trim()) {
-            newErrors.message = 'Mensagem é obrigatória';
+            newErrors.message = t('contact.form.errors.messageRequired') as string;
         } else if (formData.message.length < 10) {
-            newErrors.message = 'Mensagem muito curta';
+            newErrors.message = t('contact.form.errors.messageTooShort') as string;
         }
 
         setErrors(newErrors);
@@ -188,16 +178,16 @@ export function Contact() {
                     <div>
                         <div className="overflow-hidden mb-4">
                             <p className="reveal-line text-[var(--accent-primary)] text-sm uppercase tracking-[0.5em] font-medium">
-                                Contato
+                                {t('contact.subtitle') as string}
                             </p>
                         </div>
 
                         <h2 className="font-display text-[clamp(2rem,5vw,4rem)] font-bold mb-6">
                             <div className="overflow-hidden">
-                                <span className="reveal-line block">Vamos construir algo</span>
+                                <span className="reveal-line block">{t('contact.title.line1') as string}</span>
                             </div>
                             <div className="overflow-hidden">
-                                <span className="reveal-line block text-gradient">incrível juntos?</span>
+                                <span className="reveal-line block text-gradient">{t('contact.title.line2') as string}</span>
                             </div>
                         </h2>
 
@@ -207,7 +197,7 @@ export function Contact() {
                             transition={{ delay: 0.4 }}
                             className="text-[var(--text-secondary)] text-lg mb-10 max-w-md"
                         >
-                            Tem um projeto em mente? Me conta sua ideia e vamos transformá-la em realidade.
+                            {t('contact.description') as string}
                         </motion.p>
 
                         {/* Contact info - Estilo limpo */}
@@ -225,7 +215,7 @@ export function Contact() {
                                     <Mail size={20} className="text-[var(--accent-primary)]" />
                                 </div>
                                 <div>
-                                    <p className="text-[var(--text-muted)] text-xs uppercase tracking-wider mb-1">Email</p>
+                                    <p className="text-[var(--text-muted)] text-xs uppercase tracking-wider mb-1">{t('contact.info.email') as string}</p>
                                     <p className="text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">{contactInfo.email}</p>
                                 </div>
                             </a>
@@ -240,7 +230,7 @@ export function Contact() {
                                     <Send size={20} className="text-[var(--accent-primary)]" />
                                 </div>
                                 <div>
-                                    <p className="text-[var(--text-muted)] text-xs uppercase tracking-wider mb-1">WhatsApp</p>
+                                    <p className="text-[var(--text-muted)] text-xs uppercase tracking-wider mb-1">{t('contact.info.whatsapp') as string}</p>
                                     <p className="text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">{contactInfo.phone}</p>
                                 </div>
                             </a>
@@ -250,7 +240,7 @@ export function Contact() {
                                     <MapPin size={20} className="text-[var(--accent-primary)]" />
                                 </div>
                                 <div>
-                                    <p className="text-[var(--text-muted)] text-xs uppercase tracking-wider mb-1">Localização</p>
+                                    <p className="text-[var(--text-muted)] text-xs uppercase tracking-wider mb-1">{t('contact.info.location') as string}</p>
                                     <p className="text-[var(--text-primary)]">{contactInfo.location}</p>
                                 </div>
                             </div>
@@ -260,8 +250,8 @@ export function Contact() {
                                     <Clock size={20} className="text-[var(--accent-primary)]" />
                                 </div>
                                 <div>
-                                    <p className="text-[var(--text-muted)] text-xs uppercase tracking-wider mb-1">Tempo de resposta</p>
-                                    <p className="text-[var(--text-primary)]">Até 24 horas</p>
+                                    <p className="text-[var(--text-muted)] text-xs uppercase tracking-wider mb-1">{t('contact.info.responseTime') as string}</p>
+                                    <p className="text-[var(--text-primary)]">{t('contact.info.responseValue') as string}</p>
                                 </div>
                             </div>
                         </motion.div>
@@ -278,15 +268,15 @@ export function Contact() {
                                 <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center bg-[var(--accent-primary)]/10 rounded-full">
                                     <CheckCircle2 className="w-8 h-8 text-[var(--accent-primary)]" />
                                 </div>
-                                <h3 className="font-display text-2xl font-bold mb-4">Mensagem enviada!</h3>
+                                <h3 className="font-display text-2xl font-bold mb-4">{t('contact.success.title') as string}</h3>
                                 <p className="text-[var(--text-secondary)] mb-6">
-                                    Obrigado pelo contato. Vou analisar sua mensagem e retorno em breve.
+                                    {t('contact.success.message') as string}
                                 </p>
                                 <button
                                     onClick={() => setSubmitStatus('idle')}
                                     className="text-[var(--accent-primary)] hover:underline"
                                 >
-                                    Enviar outra mensagem
+                                    {t('contact.success.button') as string}
                                 </button>
                             </motion.div>
                         ) : (
@@ -295,7 +285,7 @@ export function Contact() {
                                 <div className="form-field grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <label htmlFor="name" className="block text-[var(--text-muted)] text-xs uppercase tracking-wider mb-2">
-                                            Seu nome *
+                                            {t('contact.form.name') as string} *
                                         </label>
                                         <input
                                             type="text"
@@ -304,7 +294,7 @@ export function Contact() {
                                             value={formData.name}
                                             onChange={handleChange}
                                             className={`w-full bg-[var(--bg-card)] border ${errors.name ? 'border-red-500' : 'border-white/10'} rounded-lg px-4 py-3 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent-primary)] focus:outline-none transition-colors`}
-                                            placeholder="Como você se chama?"
+                                            placeholder={t('contact.form.placeholders.name') as string}
                                         />
                                         {errors.name && (
                                             <p className="mt-2 text-red-400 text-sm flex items-center gap-1">
@@ -315,7 +305,7 @@ export function Contact() {
 
                                     <div>
                                         <label htmlFor="email" className="block text-[var(--text-muted)] text-xs uppercase tracking-wider mb-2">
-                                            Seu email *
+                                            {t('contact.form.email') as string} *
                                         </label>
                                         <input
                                             type="email"
@@ -324,7 +314,7 @@ export function Contact() {
                                             value={formData.email}
                                             onChange={handleChange}
                                             className={`w-full bg-[var(--bg-card)] border ${errors.email ? 'border-red-500' : 'border-white/10'} rounded-lg px-4 py-3 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent-primary)] focus:outline-none transition-colors`}
-                                            placeholder="seu@email.com"
+                                            placeholder={t('contact.form.placeholders.email') as string}
                                         />
                                         {errors.email && (
                                             <p className="mt-2 text-red-400 text-sm flex items-center gap-1">
@@ -338,7 +328,7 @@ export function Contact() {
                                 <div className="form-field grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <label htmlFor="service" className="block text-[var(--text-muted)] text-xs uppercase tracking-wider mb-2">
-                                            Tipo de projeto
+                                            {t('contact.form.service') as string}
                                         </label>
                                         <select
                                             id="service"
@@ -347,16 +337,18 @@ export function Contact() {
                                             onChange={handleChange}
                                             className="w-full bg-[var(--bg-card)] border border-white/10 rounded-lg px-4 py-3 text-[var(--text-primary)] focus:border-[var(--accent-primary)] focus:outline-none transition-colors appearance-none cursor-pointer"
                                         >
-                                            <option value="">Selecione...</option>
+                                            <option value="">{t('contact.form.placeholders.select') as string}</option>
                                             {serviceOptions.map((opt) => (
-                                                <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                                <option key={opt} value={opt}>
+                                                    {t(`contact.form.options.services.${opt}`) as string}
+                                                </option>
                                             ))}
                                         </select>
                                     </div>
 
                                     <div>
                                         <label htmlFor="budget" className="block text-[var(--text-muted)] text-xs uppercase tracking-wider mb-2">
-                                            Orçamento estimado
+                                            {t('contact.form.budget') as string}
                                         </label>
                                         <select
                                             id="budget"
@@ -365,9 +357,11 @@ export function Contact() {
                                             onChange={handleChange}
                                             className="w-full bg-[var(--bg-card)] border border-white/10 rounded-lg px-4 py-3 text-[var(--text-primary)] focus:border-[var(--accent-primary)] focus:outline-none transition-colors appearance-none cursor-pointer"
                                         >
-                                            <option value="">Selecione...</option>
+                                            <option value="">{t('contact.form.placeholders.select') as string}</option>
                                             {budgetOptions.map((opt) => (
-                                                <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                                <option key={opt} value={opt}>
+                                                    {t(`contact.form.options.budget.${opt}`) as string}
+                                                </option>
                                             ))}
                                         </select>
                                     </div>
@@ -376,7 +370,7 @@ export function Contact() {
                                 {/* Message */}
                                 <div className="form-field">
                                     <label htmlFor="message" className="block text-[var(--text-muted)] text-xs uppercase tracking-wider mb-2">
-                                        Conte sobre seu projeto *
+                                        {t('contact.form.message') as string} *
                                     </label>
                                     <textarea
                                         id="message"
@@ -385,7 +379,7 @@ export function Contact() {
                                         onChange={handleChange}
                                         rows={5}
                                         className={`w-full bg-[var(--bg-card)] border ${errors.message ? 'border-red-500' : 'border-white/10'} rounded-lg px-4 py-3 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent-primary)] focus:outline-none transition-colors resize-none`}
-                                        placeholder="Descreva sua ideia, objetivos e prazo desejado..."
+                                        placeholder={t('contact.form.placeholders.message') as string}
                                     />
                                     {errors.message && (
                                         <p className="mt-2 text-red-400 text-sm flex items-center gap-1">
@@ -406,12 +400,12 @@ export function Contact() {
                                         {isSubmitting ? (
                                             <>
                                                 <Loader2 size={18} className="animate-spin" />
-                                                Enviando...
+                                                {t('contact.form.sending') as string}
                                             </>
                                         ) : (
                                             <>
                                                 <Send size={18} />
-                                                Enviar Mensagem
+                                                {t('contact.form.submit') as string}
                                             </>
                                         )}
                                     </motion.button>
@@ -419,12 +413,12 @@ export function Contact() {
 
                                 {submitStatus === 'error' && (
                                     <p className="text-center text-red-400 text-sm">
-                                        Erro ao enviar. Tente novamente ou entre em contato pelo WhatsApp.
+                                        {t('contact.error') as string}
                                     </p>
                                 )}
 
                                 <p className="text-[var(--text-muted)] text-xs text-center">
-                                    Respondo em até 24 horas úteis
+                                    {t('contact.disclaimer') as string}
                                 </p>
                             </form>
                         )}

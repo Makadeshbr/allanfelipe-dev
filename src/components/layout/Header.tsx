@@ -1,6 +1,6 @@
 /**
  * ============================================
- * COMPONENT: Header - Com Links Reais
+ * COMPONENT: Header - Com i18n
  * ============================================
  */
 
@@ -11,11 +11,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import Link from 'next/link';
 import { navLinks, contactInfo } from '@/data/site-data';
+import { useLanguage } from '@/context/LanguageContext';
 
 export function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
+
+    // Usando o contexto de linguagem
+    const { language, toggleLanguage, t } = useLanguage();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -67,6 +71,20 @@ export function Header() {
         setIsMenuOpen(false);
     };
 
+    // Função para traduzir labels dos links
+    const getTranslatedLabel = (key: string) => {
+        return t(`nav.${key}`) as string || key;
+    };
+
+    // Mapeamento de links para chaves de tradução
+    const linkKeys: Record<string, string> = {
+        '/about': 'about',
+        '/services': 'services',
+        '/projects': 'projects',
+        '/case-studies': 'caseStudies',
+        '/contact': 'contact'
+    };
+
     return (
         <>
             {/* Header Bar */}
@@ -75,8 +93,8 @@ export function Header() {
                 animate={{ y: 0 }}
                 transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className={`fixed top-0 left-0 right-0 z-[200] transition-all duration-300 ${isScrolled && !isMenuOpen
-                        ? 'bg-[var(--bg-primary)]/90 backdrop-blur-md border-b border-white/5'
-                        : 'bg-transparent'
+                    ? 'bg-[var(--bg-primary)]/90 backdrop-blur-md border-b border-white/5'
+                    : 'bg-transparent'
                     }`}
             >
                 <div className="container flex items-center justify-between h-20">
@@ -98,41 +116,63 @@ export function Header() {
                     {/* Tagline */}
                     <div className={`hidden lg:block absolute left-1/2 -translate-x-1/2 transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}>
                         <span className="text-[var(--text-muted)] text-sm tracking-widest uppercase">
-                            Distinct. Always.
+                            {t('hero.tagline') as string}
                         </span>
                     </div>
 
-                    {/* Menu Button */}
-                    <motion.button
-                        className="relative z-[250] flex items-center gap-3 group"
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        whileTap={{ scale: 0.95 }}
-                    >
-                        <span className={`text-sm font-medium transition-colors ${isMenuOpen ? 'text-white' : 'text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]'
-                            }`}>
-                            {isMenuOpen ? 'Close' : 'Menu'}
-                        </span>
-                        <div className="relative w-6 h-4 flex flex-col justify-between">
-                            <motion.span
-                                className={`w-full h-0.5 rounded-full transition-colors ${isMenuOpen ? 'bg-white' : 'bg-[var(--text-primary)]'
-                                    }`}
-                                animate={{
-                                    rotate: isMenuOpen ? 45 : 0,
-                                    y: isMenuOpen ? 7 : 0,
-                                }}
-                                transition={{ duration: 0.3 }}
-                            />
-                            <motion.span
-                                className={`w-full h-0.5 rounded-full transition-colors ${isMenuOpen ? 'bg-white' : 'bg-[var(--text-primary)]'
-                                    }`}
-                                animate={{
-                                    rotate: isMenuOpen ? -45 : 0,
-                                    y: isMenuOpen ? -7 : 0,
-                                }}
-                                transition={{ duration: 0.3 }}
-                            />
-                        </div>
-                    </motion.button>
+                    {/* Actions: Language + Menu */}
+                    <div className="flex items-center gap-6">
+                        {/* Language Toggle */}
+                        <motion.button
+                            className={`relative z-[250] flex items-center gap-1 text-sm font-medium transition-colors ${isMenuOpen
+                                    ? 'text-white/60 hover:text-white'
+                                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                                }`}
+                            onClick={toggleLanguage}
+                            whileTap={{ scale: 0.95 }}
+                            title={language === 'pt-BR' ? 'Switch to English' : 'Mudar para Português'}
+                        >
+                            <span className={language === 'pt-BR' ? (isMenuOpen ? 'text-white' : 'text-[var(--text-primary)]') : ''}>
+                                PT
+                            </span>
+                            <span className="opacity-40">|</span>
+                            <span className={language === 'en' ? (isMenuOpen ? 'text-white' : 'text-[var(--text-primary)]') : ''}>
+                                EN
+                            </span>
+                        </motion.button>
+
+                        {/* Menu Button */}
+                        <motion.button
+                            className="relative z-[250] flex items-center gap-3 group"
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <span className={`text-sm font-medium transition-colors ${isMenuOpen ? 'text-white' : 'text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]'
+                                }`}>
+                                {isMenuOpen ? (t('header.close') as string || 'Close') : (t('header.menu') as string || 'Menu')}
+                            </span>
+                            <div className="relative w-6 h-4 flex flex-col justify-between">
+                                <motion.span
+                                    className={`w-full h-0.5 rounded-full transition-colors ${isMenuOpen ? 'bg-white' : 'bg-[var(--text-primary)]'
+                                        }`}
+                                    animate={{
+                                        rotate: isMenuOpen ? 45 : 0,
+                                        y: isMenuOpen ? 7 : 0,
+                                    }}
+                                    transition={{ duration: 0.3 }}
+                                />
+                                <motion.span
+                                    className={`w-full h-0.5 rounded-full transition-colors ${isMenuOpen ? 'bg-white' : 'bg-[var(--text-primary)]'
+                                        }`}
+                                    animate={{
+                                        rotate: isMenuOpen ? -45 : 0,
+                                        y: isMenuOpen ? -7 : 0,
+                                    }}
+                                    transition={{ duration: 0.3 }}
+                                />
+                            </div>
+                        </motion.button>
+                    </div>
                 </div>
             </motion.header>
 
@@ -166,7 +206,7 @@ export function Header() {
                                                     whileHover={{ x: 20 }}
                                                     transition={{ duration: 0.3 }}
                                                 >
-                                                    {link.label}
+                                                    {linkKeys[link.href] ? getTranslatedLabel(linkKeys[link.href]) : link.label}
                                                 </motion.span>
                                             </div>
                                         </Link>
@@ -177,7 +217,7 @@ export function Header() {
                             {/* Menu Footer - Com dados reais */}
                             <div className="menu-footer mt-auto pb-12 flex flex-col md:flex-row md:items-end justify-between gap-8 opacity-0">
                                 <div>
-                                    <p className="text-white/60 text-sm mb-2">Email</p>
+                                    <p className="text-white/60 text-sm mb-2">{t('header.email') as string || 'Email'}</p>
                                     <a
                                         href={`mailto:${contactInfo.email}`}
                                         className="text-white text-lg hover:underline"

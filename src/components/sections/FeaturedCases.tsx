@@ -15,40 +15,36 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { useLanguage } from '@/context/LanguageContext';
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-// Cases em destaque
-const featuredCases = [
+// IDs dos cases para tradução e metadados visuais que não mudam
+const casesData = [
     {
         id: 'app-gerenciamento',
-        title: 'App de Gerenciamento',
-        subtitle: 'Interface mobile criativa com animações fluidas',
+        translationKey: 'appManagement',
         tags: ['React Native', 'Node.js'],
         gradient: 'from-blue-600/40 to-indigo-600/30',
         featured: true,
     },
     {
         id: 'ecommerce-platform',
-        title: 'E-commerce Platform',
-        subtitle: 'Plataforma moderna com Headless CMS',
+        translationKey: 'ecommerce',
         tags: ['Next.js', 'Stripe'],
         gradient: 'from-violet-600/40 to-purple-600/30',
     },
     {
         id: 'dashboard-analytics',
-        title: 'Dashboard Analytics',
-        subtitle: 'Visualização de dados em tempo real',
+        translationKey: 'dashboard',
         tags: ['React', 'D3.js'],
         gradient: 'from-cyan-600/40 to-blue-600/30',
     },
     {
         id: 'landing-premium',
-        title: 'Landing Premium',
-        subtitle: 'Site institucional de alta conversão',
+        translationKey: 'landing',
         tags: ['Next.js', 'Framer Motion'],
         gradient: 'from-slate-600/40 to-gray-600/30',
     },
@@ -57,6 +53,7 @@ const featuredCases = [
 export function FeaturedCases() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const headerRef = useRef<HTMLDivElement>(null);
+    const { t } = useLanguage();
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -108,6 +105,13 @@ export function FeaturedCases() {
         return () => ctx.revert();
     }, []);
 
+    // Preparar cases traduzidos
+    const featuredCases = casesData.map(c => ({
+        ...c,
+        title: t(`cases.items.${c.translationKey}.title`) as string,
+        subtitle: t(`cases.items.${c.translationKey}.description`) as string,
+    }));
+
     return (
         <section ref={sectionRef} className="section bg-[var(--bg-primary)]">
             <div className="container">
@@ -116,15 +120,15 @@ export function FeaturedCases() {
                     <div>
                         <div className="overflow-hidden mb-4">
                             <p className="reveal-line text-[var(--accent-primary)] text-sm uppercase tracking-[0.5em] font-medium">
-                                Case Studies
+                                {t('cases.subtitle') as string}
                             </p>
                         </div>
                         <h2 className="font-display text-[clamp(1.5rem,4vw,3rem)] font-bold">
                             <div className="overflow-hidden">
-                                <span className="reveal-line block">Marketing criativo para</span>
+                                <span className="reveal-line block">{t('cases.title.line1') as string}</span>
                             </div>
                             <div className="overflow-hidden">
-                                <span className="reveal-line block text-gradient">projetos digitais.</span>
+                                <span className="reveal-line block text-gradient">{t('cases.title.line2') as string}</span>
                             </div>
                         </h2>
                     </div>
@@ -133,7 +137,7 @@ export function FeaturedCases() {
                         href="/case-studies"
                         className="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors group"
                     >
-                        Ver todos os cases
+                        {t('cases.viewAll') as string}
                         <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </div>
@@ -165,7 +169,7 @@ export function FeaturedCases() {
                                         {/* Featured badge */}
                                         <div className="absolute top-6 left-6">
                                             <span className="px-4 py-2 bg-[var(--accent-primary)] rounded-lg text-xs font-bold text-white uppercase tracking-wider">
-                                                Featured Project
+                                                {t('cases.featuredBadge') as string || 'Highlight'}
                                             </span>
                                         </div>
 
@@ -200,7 +204,7 @@ export function FeaturedCases() {
                                     </p>
 
                                     <div className="flex items-center gap-2 text-[var(--accent-primary)]">
-                                        Ver Case Study
+                                        {t('cases.viewCase') as string}
                                         <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
                                     </div>
                                 </div>

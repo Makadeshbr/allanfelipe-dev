@@ -1,0 +1,147 @@
+{
+    "header": {
+        "menu": "Menu",
+        "close": "Fechar",
+        "email": "Email",
+        "tagline": "Distinct. Always."
+    },
+    "nav": {
+        "about": "Sobre",
+        "services": "Serviços",
+        "projects": "Projetos",
+        "caseStudies": "Cases",
+        "contact": "Contato"
+    },
+    "hero": {
+        "tagline": "Full-Stack Developer",
+        "title": {
+            "line1": "Branding, Websites",
+            "line2": "& Aplicações",
+            "line3": "para projetos digitais."
+        },
+        "showreel": "Ver nosso showreel",
+        "specializedIn": "Especializado em",
+        "scroll": "Scroll"
+    },
+    "services": {
+        "subtitle": "O que fazemos",
+        "title": {
+            "line1": "Full-Stack Developer",
+            "line2": "especializado em resultados."
+        },
+        "cta": {
+            "title": "Resultados são tudo. Simples assim.",
+            "description": "De websites a aplicações complexas, ajudo empresas a crescer através da tecnologia.",
+            "button": "Ver Serviços"
+        },
+        "items": {
+            "websites": {
+                "title": "Websites",
+                "items": [
+                    "Landing pages",
+                    "Sites institucionais",
+                    "Web experiences"
+                ]
+            },
+            "design": {
+                "title": "Design",
+                "items": [
+                    "UI/UX Design",
+                    "Web design",
+                    "Design systems"
+                ]
+            },
+            "apps": {
+                "title": "Apps",
+                "items": [
+                    "React Native",
+                    "Next.js Apps",
+                    "PWAs"
+                ]
+            },
+            "growth": {
+                "title": "Growth",
+                "items": [
+                    "SEO técnico",
+                    "Performance",
+                    "Analytics"
+                ]
+            }
+        }
+    },
+    "stats": {
+        "subtitle": "Results are everything",
+        "title": {
+            "line1": "Resultados que",
+            "line2": "fazem a diferença."
+        },
+        "description": "De websites premiados a experiências complexas, ajudo empresas a usar a web para crescer, converter e alcançar novos mercados.",
+        "items": {
+            "conversion": {
+                "label": "Aumento em conversão",
+                "description": "Média de melhoria em projetos"
+            },
+            "clients": {
+                "label": "Clientes atendidos",
+                "description": "Startups e empresas"
+            },
+            "projects": {
+                "label": "Projetos entregues",
+                "description": "Web e mobile"
+            },
+            "experience": {
+                "label": "Anos de experiência",
+                "description": "Full-stack development"
+            }
+        }
+    },
+    "cases": {
+        "subtitle": "Case Studies",
+        "title": {
+            "line1": "Marketing criativo para",
+            "line2": "projetos digitais."
+        },
+        "viewAll": "Ver todos os cases",
+        "viewCase": "Ver Case Study",
+        "featured": "Featured Project"
+    },
+    "clients": {
+        "subtitle": "Experiência em",
+        "title": "Diversos",
+        "titleHighlight": "nichos"
+    },
+    "contact": {
+        "subtitle": "Vamos trabalhar juntos",
+        "title": {
+            "line1": "Pronto para",
+            "line2": "começar?"
+        },
+        "description": "Tem um projeto em mente? Entre em contato e vamos transformar suas ideias em realidade.",
+        "form": {
+            "name": "Seu nome",
+            "email": "Seu email",
+            "message": "Sua mensagem",
+            "submit": "Enviar mensagem",
+            "sending": "Enviando...",
+            "success": "Mensagem enviada com sucesso!",
+            "error": "Erro ao enviar. Tente novamente."
+        },
+        "whatsapp": "Prefere WhatsApp?"
+    },
+    "footer": {
+        "tagline": "Criando experiências digitais que fazem a diferença.",
+        "navigation": "Navegação",
+        "contact": "Contato",
+        "social": "Social",
+        "rights": "Todos os direitos reservados.",
+        "location": "Brasil - Atendimento Remoto"
+    },
+    "rotatingWords": [
+        "Web Apps",
+        "Mobile Apps",
+        "APIs REST",
+        "Design Systems",
+        "E-commerce",
+        "Dashboards"
+    ]
+}

@@ -13,6 +13,7 @@
 import type { Metadata } from 'next';
 import { Header, Footer } from '@/components/layout';
 import { SmoothScrollProvider, CustomCursor, PageTransition, PageLoader } from '@/components/ui';
+import { LanguageProvider } from '@/context';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -63,17 +64,19 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased">
-        {/* Page Loader - First visit only */}
-        <PageLoader />
+        <LanguageProvider>
+          {/* Page Loader - First visit only */}
+          <PageLoader />
 
-        <SmoothScrollProvider>
-          <CustomCursor />
-          <Header />
-          <PageTransition>
-            <main>{children}</main>
-          </PageTransition>
-          <Footer />
-        </SmoothScrollProvider>
+          <SmoothScrollProvider>
+            <CustomCursor />
+            <Header />
+            <PageTransition>
+              <main>{children}</main>
+            </PageTransition>
+            <Footer />
+          </SmoothScrollProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

@@ -15,52 +15,23 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Globe, Palette, Clapperboard, TrendingUp, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-const services = [
-    {
-        icon: Globe,
-        title: 'Websites',
-        items: [
-            'Landing pages',
-            'Sites institucionais',
-            'Web experiences',
-        ],
-    },
-    {
-        icon: Palette,
-        title: 'Design',
-        items: [
-            'UI/UX Design',
-            'Web design',
-            'Design systems',
-        ],
-    },
-    {
-        icon: Clapperboard,
-        title: 'Apps',
-        items: [
-            'React Native',
-            'Next.js Apps',
-            'PWAs',
-        ],
-    },
-    {
-        icon: TrendingUp,
-        title: 'Growth',
-        items: [
-            'SEO técnico',
-            'Performance',
-            'Analytics',
-        ],
-    },
+// Chaves dos serviços para mapear ícones
+const serviceKeys = [
+    { key: 'websites', icon: Globe },
+    { key: 'design', icon: Palette },
+    { key: 'apps', icon: Clapperboard },
+    { key: 'growth', icon: TrendingUp },
 ];
 
 export function Services() {
     const sectionRef = useRef<HTMLDivElement>(null);
+    const { t } = useLanguage();
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -104,6 +75,13 @@ export function Services() {
         return () => ctx.revert();
     }, []);
 
+    // Gera lista de serviços traduzida
+    const services = serviceKeys.map(({ key, icon }) => ({
+        icon,
+        title: t(`services.items.${key}.title`),
+        items: t(`services.items.${key}.items`) as string[],
+    }));
+
     return (
         <section ref={sectionRef} id="services" className="section bg-[var(--bg-secondary)]">
             <div className="container">
@@ -111,16 +89,16 @@ export function Services() {
                 <div className="max-w-2xl mb-20">
                     <div className="overflow-hidden mb-4">
                         <p className="header-reveal text-[var(--accent-primary)] text-sm uppercase tracking-[0.5em] font-medium">
-                            What we do
+                            {t('services.subtitle') as string}
                         </p>
                     </div>
 
                     <h2 className="font-display text-h1 font-bold mb-6">
                         <div className="overflow-hidden">
-                            <span className="header-reveal block">Full-Stack Developer</span>
+                            <span className="header-reveal block">{t('services.title.line1') as string}</span>
                         </div>
                         <div className="overflow-hidden">
-                            <span className="header-reveal block text-gradient">especializado em resultados.</span>
+                            <span className="header-reveal block text-gradient">{t('services.title.line2') as string}</span>
                         </div>
                     </h2>
                 </div>
@@ -129,7 +107,7 @@ export function Services() {
                 <div className="services-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
                     {services.map((service) => (
                         <motion.div
-                            key={service.title}
+                            key={service.title as string}
                             className="service-card group p-8 rounded-2xl bg-[var(--bg-card)] border border-white/5 hover:border-[var(--accent-primary)]/30 transition-all"
                             whileHover={{ y: -8 }}
                             transition={{ duration: 0.3 }}
@@ -141,12 +119,12 @@ export function Services() {
 
                             {/* Title */}
                             <h3 className="font-display text-xl font-bold mb-4 group-hover:text-[var(--accent-primary)] transition-colors">
-                                {service.title}
+                                {service.title as string}
                             </h3>
 
                             {/* Items */}
                             <ul className="space-y-2">
-                                {service.items.map((item) => (
+                                {service.items && service.items.map((item) => (
                                     <li key={item} className="text-[var(--text-secondary)] text-sm">
                                         {item}
                                     </li>
@@ -160,15 +138,15 @@ export function Services() {
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 p-8 rounded-2xl bg-[var(--bg-card)] border border-white/5">
                     <div>
                         <h3 className="font-display text-xl font-bold mb-2">
-                            Resultados são tudo. Simples assim.
+                            {t('services.cta.title') as string}
                         </h3>
                         <p className="text-[var(--text-secondary)]">
-                            De websites a aplicações complexas, ajudo empresas a crescer através da tecnologia.
+                            {t('services.cta.description') as string}
                         </p>
                     </div>
 
                     <Link href="/services" className="btn btn-primary whitespace-nowrap">
-                        Ver Serviços
+                        {t('services.cta.button') as string}
                         <ArrowRight size={18} />
                     </Link>
                 </div>

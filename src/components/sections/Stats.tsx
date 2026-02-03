@@ -14,40 +14,18 @@ import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { TrendingUp, Users, Code, Award } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-const stats = [
-    {
-        icon: TrendingUp,
-        value: 40,
-        suffix: '%',
-        label: 'Aumento em conversão',
-        description: 'Média de melhoria em projetos',
-    },
-    {
-        icon: Users,
-        value: 50,
-        suffix: '+',
-        label: 'Clientes atendidos',
-        description: 'Startups e empresas',
-    },
-    {
-        icon: Code,
-        value: 100,
-        suffix: '+',
-        label: 'Projetos entregues',
-        description: 'Web e mobile',
-    },
-    {
-        icon: Award,
-        value: 5,
-        suffix: '+',
-        label: 'Anos de experiência',
-        description: 'Full-stack development',
-    },
+// Chaves para mapeamento
+const statKeys = [
+    { key: 'conversion', icon: TrendingUp, value: 40, suffix: '%' },
+    { key: 'clients', icon: Users, value: 50, suffix: '+' },
+    { key: 'projects', icon: Code, value: 100, suffix: '+' },
+    { key: 'experience', icon: Award, value: 5, suffix: '+' },
 ];
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
@@ -100,6 +78,7 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
 
 export function Stats() {
     const sectionRef = useRef<HTMLDivElement>(null);
+    const { t } = useLanguage();
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -140,6 +119,15 @@ export function Stats() {
         return () => ctx.revert();
     }, []);
 
+    // Mapeamento traduzido
+    const stats = statKeys.map(({ key, icon, value, suffix }) => ({
+        icon,
+        value,
+        suffix,
+        label: t(`stats.items.${key}.label`),
+        description: t(`stats.items.${key}.description`),
+    }));
+
     return (
         <section ref={sectionRef} className="section bg-[var(--bg-secondary)] relative overflow-hidden">
             {/* Background gradient */}
@@ -149,23 +137,22 @@ export function Stats() {
                 {/* Header */}
                 <div className="stats-header max-w-3xl mb-16">
                     <p className="text-[var(--accent-primary)] text-sm uppercase tracking-[0.5em] font-medium mb-4">
-                        Results are everything
+                        {t('stats.subtitle') as string}
                     </p>
                     <h2 className="font-display text-h1 font-bold mb-4">
-                        Resultados que{' '}
-                        <span className="text-gradient">fazem a diferença.</span>
+                        {t('stats.title.line1') as string}{' '}
+                        <span className="text-gradient">{t('stats.title.line2') as string}</span>
                     </h2>
                     <p className="text-[var(--text-secondary)] text-lg">
-                        De websites premiados a experiências complexas, ajudo empresas a
-                        usar a web para crescer, converter e alcançar novos mercados.
+                        {t('stats.description') as string}
                     </p>
                 </div>
 
                 {/* Stats Grid - Gap aumentado */}
                 <div className="stats-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {stats.map((stat, index) => (
+                    {stats.map((stat) => (
                         <motion.div
-                            key={stat.label}
+                            key={stat.label as string}
                             className="stat-card group relative p-8 rounded-2xl bg-[var(--bg-card)] border border-white/5 hover:border-[var(--accent-primary)]/30 transition-all"
                             whileHover={{ y: -8, scale: 1.02 }}
                             transition={{ duration: 0.3 }}
@@ -184,10 +171,10 @@ export function Stats() {
 
                             {/* Label */}
                             <h3 className="font-medium text-[var(--text-primary)] mb-1">
-                                {stat.label}
+                                {stat.label as string}
                             </h3>
                             <p className="text-[var(--text-muted)] text-sm">
-                                {stat.description}
+                                {stat.description as string}
                             </p>
                         </motion.div>
                     ))}
