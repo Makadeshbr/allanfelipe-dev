@@ -73,7 +73,7 @@ export function TextReveal({
 
     return (
         <div ref={containerRef} className="overflow-hidden">
-            <Tag ref={textRef as React.RefObject<HTMLSpanElement>} className={`block ${className}`}>
+            <Tag ref={textRef as any} className={`block ${className}`}>
                 {children}
             </Tag>
         </div>
