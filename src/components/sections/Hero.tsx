@@ -156,15 +156,15 @@ export function Hero() {
                 {/* Content */}
                 <div className="hero-content container relative z-10 pt-32 pb-20">
                     {/* Tagline */}
-                    <div ref={taglineRef} className="overflow-hidden mb-6">
-                        <p className="tagline-text text-[var(--accent-primary)] text-sm uppercase tracking-[0.5em] font-medium">
+                    <div ref={taglineRef} className="overflow-hidden mb-8">
+                        <p className="tagline-text text-[var(--accent-primary)] text-xs uppercase tracking-[0.6em] font-medium">
                             {t('hero.tagline') as string}
                         </p>
                     </div>
 
-                    {/* Headline */}
-                    <div ref={headlineRef} className="mb-8">
-                        <h1 className="font-display text-[clamp(2.5rem,7vw,6rem)] font-bold leading-[0.95] tracking-tight">
+                    {/* Headline - Tipografia impactante estilo 1minus1 */}
+                    <div ref={headlineRef} className="mb-10">
+                        <h1 className="font-display text-[clamp(3rem,10vw,8rem)] font-bold leading-[0.9] tracking-tight">
                             <div className="overflow-hidden">
                                 <span className="headline-line block text-[var(--text-primary)]">
                                     {t('hero.title.line1') as string}

@@ -194,7 +194,25 @@
         "contact": "Contato",
         "social": "Social",
         "rights": "Todos os direitos reservados.",
-        "location": "Brasil - Atendimento Remoto"
+        "location": "Brasil - Atendimento Remoto",
+        "cta": {
+            "line1": "Diferente onde importa.",
+            "line2": "Fanático onde conta."
+        },
+        "contactUs": "Entre em contato",
+        "legal": {
+            "privacy": "Privacidade",
+            "terms": "Termos"
+        }
+    },
+    "contactModal": {
+        "title": "Vamos conversar?",
+        "subtitle": "Conte sobre seu projeto e vamos transformar sua visão em realidade.",
+        "formTitle": "Envie uma mensagem",
+        "location": "Localização",
+        "successTitle": "Mensagem enviada!",
+        "successMessage": "Obrigado pelo contato. Retorno em até 24 horas.",
+        "sendAnother": "Enviar outra mensagem"
     },
     "rotatingWords": [
         "Web Apps",

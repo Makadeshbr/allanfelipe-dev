@@ -44,7 +44,7 @@
   --font-body: 'Inter', system-ui, sans-serif;
 
   /* Font Sizes - Fluid Typography */
-  --text-hero: clamp(3rem, 10vw, 8rem);
+  --text-hero: clamp(3.5rem, 12vw, 10rem);
   --text-h1: clamp(2.5rem, 6vw, 5rem);
   --text-h2: clamp(1.75rem, 4vw, 3rem);
   --text-h3: clamp(1.25rem, 2vw, 1.75rem);
@@ -59,8 +59,8 @@
   --space-xl: 8rem;
   --space-2xl: 12rem;
 
-  /* Section Spacing - Aumentado para mais whitespace */
-  --section-padding: clamp(6rem, 18vh, 12rem);
+  /* Section Spacing - Whitespace generoso como 1minus1.com */
+  --section-padding: clamp(8rem, 20vh, 16rem);
 
   /* Border Radius */
   --radius-sm: 0.5rem;

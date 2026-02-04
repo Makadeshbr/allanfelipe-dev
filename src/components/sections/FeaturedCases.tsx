@@ -163,7 +163,7 @@ export function FeaturedCases() {
                                             src={featuredCases[0].image}
                                             alt={featuredCases[0].title}
                                             fill
-                                            className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                            className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
                                         />
                                     ) : (
                                         <div className={`case-image-bg absolute inset-0 bg-gradient-to-br ${featuredCases[0].gradient}`}>
@@ -185,9 +185,9 @@ export function FeaturedCases() {
                                         </span>
                                     </div>
 
-                                    {/* Hover overlay */}
-                                    <div className="case-image-overlay absolute inset-0 bg-[var(--bg-primary)]/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
-                                        <div className="p-4 bg-[var(--accent-primary)] rounded-full transform scale-0 group-hover:scale-100 transition-transform duration-300">
+                                    {/* Hover overlay - mais suave */}
+                                    <div className="case-image-overlay absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 flex items-end justify-end p-6 transition-opacity duration-500">
+                                        <div className="p-4 bg-[var(--accent-primary)] rounded-full transform scale-0 group-hover:scale-100 transition-transform duration-300 delay-100">
                                             <ArrowUpRight size={24} className="text-white" />
                                         </div>
                                     </div>
@@ -242,7 +242,7 @@ export function FeaturedCases() {
                                                 src={caseItem.image}
                                                 alt={caseItem.title}
                                                 fill
-                                                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                                className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
                                             />
                                         ) : (
                                             <div className={`case-image-bg absolute inset-0 bg-gradient-to-br ${caseItem.gradient}`}>
@@ -257,8 +257,8 @@ export function FeaturedCases() {
                                             </div>
                                         )}
 
-                                        {/* Hover overlay */}
-                                        <div className="case-image-overlay absolute inset-0 bg-[var(--bg-primary)]/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                                        {/* Hover overlay - mais suave */}
+                                        <div className="case-image-overlay absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)]/80 via-[var(--bg-primary)]/20 to-transparent opacity-0 group-hover:opacity-100 flex items-end justify-between p-6 transition-opacity duration-500">
                                             <div className="p-3 bg-[var(--accent-primary)] rounded-full transform scale-0 group-hover:scale-100 transition-transform duration-300">
                                                 <ArrowUpRight size={20} className="text-white" />
                                             </div>

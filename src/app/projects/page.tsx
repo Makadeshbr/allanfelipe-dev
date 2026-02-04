@@ -14,6 +14,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
 import { projects } from '@/data/site-data';
 
 if (typeof window !== 'undefined') {
@@ -130,8 +131,8 @@ export default function ProjectsPage() {
                                 key={cat}
                                 onClick={() => setActiveFilter(cat)}
                                 className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${activeFilter === cat
-                                        ? 'bg-[var(--accent-primary)] text-[var(--bg-primary)]'
-                                        : 'bg-[var(--bg-card)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                                    ? 'bg-[var(--accent-primary)] text-[var(--bg-primary)]'
+                                    : 'bg-[var(--bg-card)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                                     }`}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
@@ -165,25 +166,38 @@ export default function ProjectsPage() {
                                     >
                                         {/* Image */}
                                         <div className={`relative overflow-hidden ${index === 0 ? 'aspect-[21/9]' : 'aspect-[16/10]'}`}>
-                                            <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent-primary)]/30 via-[var(--accent-tertiary)]/20 to-[var(--bg-card)]">
-                                                {/* Grid pattern */}
-                                                <div
-                                                    className="absolute inset-0 opacity-[0.08]"
-                                                    style={{
-                                                        backgroundImage: `
+                                            {project.image ? (
+                                                <>
+                                                    <Image
+                                                        src={project.image}
+                                                        alt={project.title}
+                                                        fill
+                                                        className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
+                                                    />
+                                                    {/* Dark overlay for text readability */}
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-transparent to-transparent opacity-60" />
+                                                </>
+                                            ) : (
+                                                <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent-primary)]/30 via-[var(--accent-tertiary)]/20 to-[var(--bg-card)]">
+                                                    {/* Grid pattern */}
+                                                    <div
+                                                        className="absolute inset-0 opacity-[0.08]"
+                                                        style={{
+                                                            backgroundImage: `
                               linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px),
                               linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)
                             `,
-                                                        backgroundSize: '40px 40px',
-                                                    }}
-                                                />
-
-                                                {/* Category badge */}
-                                                <div className="absolute top-4 left-4">
-                                                    <span className="px-4 py-1.5 bg-[var(--bg-primary)]/80 backdrop-blur-sm rounded-full text-xs font-medium text-[var(--accent-primary)]">
-                                                        {project.category}
-                                                    </span>
+                                                            backgroundSize: '40px 40px',
+                                                        }}
+                                                    />
                                                 </div>
+                                            )}
+
+                                            {/* Category badge */}
+                                            <div className="absolute top-4 left-4 z-10">
+                                                <span className="px-4 py-1.5 bg-[var(--bg-primary)]/80 backdrop-blur-sm rounded-full text-xs font-medium text-[var(--accent-primary)]">
+                                                    {project.category}
+                                                </span>
                                             </div>
 
                                             {/* Hover overlay with links */}

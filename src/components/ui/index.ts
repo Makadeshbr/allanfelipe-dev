@@ -12,3 +12,4 @@ export { RevealImage } from './RevealImage';
 export { ParallaxSection } from './ParallaxSection';
 export { PageTransition } from './PageTransition';
 export { PageLoader } from './PageLoader';
+export { ContactModal } from './ContactModal';

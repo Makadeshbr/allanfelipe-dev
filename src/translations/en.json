@@ -194,7 +194,25 @@
         "contact": "Contact",
         "social": "Social",
         "rights": "All rights reserved.",
-        "location": "Brazil - Remote Service"
+        "location": "Brazil - Remote Service",
+        "cta": {
+            "line1": "Different where it matters.",
+            "line2": "Fanatical where it counts."
+        },
+        "contactUs": "Contact us",
+        "legal": {
+            "privacy": "Privacy",
+            "terms": "Terms"
+        }
+    },
+    "contactModal": {
+        "title": "Let's talk?",
+        "subtitle": "Tell us about your project and let's transform your vision into reality.",
+        "formTitle": "Send a message",
+        "location": "Location",
+        "successTitle": "Message sent!",
+        "successMessage": "Thanks for reaching out. I'll respond within 24 hours.",
+        "sendAnother": "Send another message"
     },
     "rotatingWords": [
         "Web Apps",

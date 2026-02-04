@@ -1,6 +1,6 @@
 /**
  * ============================================
- * HOME PAGE - Otimizada conforme Auditoria UX
+ * HOME PAGE - Estilo 1minus1.com
  * ============================================
  * 
  * Estrutura simplificada:
@@ -9,7 +9,8 @@
  * 3. Stats
  * 4. Featured Cases
  * 5. Clients (simplificado)
- * 6. Contact CTA
+ * 
+ * Contato agora é modal fullscreen (ContactModal)
  */
 
 import {
@@ -18,7 +19,6 @@ import {
   Stats,
   FeaturedCases,
   Clients,
-  Contact
 } from '@/components/sections';
 
 export default function HomePage() {
@@ -38,9 +38,6 @@ export default function HomePage() {
 
       {/* Clients - Nichos */}
       <Clients />
-
-      {/* Contact CTA */}
-      <Contact />
     </>
   );
 }

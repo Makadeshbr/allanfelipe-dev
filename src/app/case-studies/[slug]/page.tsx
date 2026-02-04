@@ -16,6 +16,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowLeft, ExternalLink, Github, Clock, Users, Zap, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
@@ -33,6 +34,7 @@ const caseStudiesData: Record<string, {
     duration: string;
     role: string;
     color: string;
+    image?: string;
     liveUrl?: string;
     githubUrl?: string;
 }> = {
@@ -52,6 +54,7 @@ const caseStudiesData: Record<string, {
         duration: '8 semanas',
         role: 'Full-Stack Developer',
         color: 'from-emerald-500/40 to-teal-500/30',
+        image: '/images/cases/mobile.png',
         liveUrl: '#',
         githubUrl: '#',
     },
@@ -71,6 +74,7 @@ const caseStudiesData: Record<string, {
         duration: '6 semanas',
         role: 'Full-Stack Developer',
         color: 'from-violet-500/40 to-purple-500/30',
+        image: '/images/cases/ecommerce.png',
         liveUrl: '#',
         githubUrl: '#',
     },
@@ -90,6 +94,7 @@ const caseStudiesData: Record<string, {
         duration: '5 semanas',
         role: 'Frontend Developer',
         color: 'from-amber-500/40 to-orange-500/30',
+        image: '/images/cases/dashboard.png',
         liveUrl: '#',
         githubUrl: '#',
     },
@@ -109,6 +114,7 @@ const caseStudiesData: Record<string, {
         duration: '3 semanas',
         role: 'Frontend Developer',
         color: 'from-blue-500/40 to-cyan-500/30',
+        image: '/images/cases/landing.png',
         liveUrl: '#',
         githubUrl: '#',
     },
@@ -175,8 +181,21 @@ export default function CaseStudyPage({ params }: { params: Promise<{ slug: stri
         <>
             {/* Hero */}
             <section ref={heroRef} className="min-h-[70vh] flex items-end pt-32 pb-20 bg-[var(--bg-primary)] relative overflow-hidden">
-                {/* Background gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${caseData.color} opacity-30`} />
+                {/* Background image or gradient */}
+                {caseData.image ? (
+                    <div className="absolute inset-0">
+                        <Image
+                            src={caseData.image}
+                            alt={caseData.title}
+                            fill
+                            className="object-cover opacity-20"
+                            priority
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-[var(--bg-primary)]/80 to-transparent" />
+                    </div>
+                ) : (
+                    <div className={`absolute inset-0 bg-gradient-to-br ${caseData.color} opacity-30`} />
+                )}
 
                 <div className="container relative z-10">
                     {/* Back button */}

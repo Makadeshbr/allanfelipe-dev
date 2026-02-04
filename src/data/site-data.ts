@@ -7,13 +7,12 @@
 import { NavLink, Service, Stat, Project } from '@/types';
 import { Github, Linkedin, MessageSquare } from 'lucide-react';
 
-/** Links de navegação */
+/** Links de navegação - Contact removido, agora é modal */
 export const navLinks: NavLink[] = [
     { label: 'About', href: '/about' },
     { label: 'Services', href: '/services' },
     { label: 'Projects', href: '/projects' },
     { label: 'Case Studies', href: '/case-studies' },
-    { label: 'Contact', href: '/#contact' },
 ];
 
 /** Métricas/Stats */

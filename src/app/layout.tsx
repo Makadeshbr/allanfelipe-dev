@@ -3,16 +3,16 @@
  * ROOT LAYOUT - Complete Edition
  * ============================================
  * 
- * Layout com todos os providers e componentes:
+ * Layout com AppShell que gerencia:
  * - PageLoader
  * - PageTransition
  * - CustomCursor
  * - Header/Footer
+ * - ContactModal
  */
 
 import type { Metadata } from 'next';
-import { Header, Footer } from '@/components/layout';
-import { SmoothScrollProvider, CustomCursor, PageTransition, PageLoader } from '@/components/ui';
+import { AppShell } from '@/components/layout';
 import { LanguageProvider } from '@/context';
 import './globals.css';
 
@@ -65,17 +65,7 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased">
         <LanguageProvider>
-          {/* Page Loader - First visit only */}
-          <PageLoader />
-
-          <SmoothScrollProvider>
-            <CustomCursor />
-            <Header />
-            <PageTransition>
-              <main>{children}</main>
-            </PageTransition>
-            <Footer />
-          </SmoothScrollProvider>
+          <AppShell>{children}</AppShell>
         </LanguageProvider>
       </body>
     </html>

@@ -1,6 +1,6 @@
 /**
  * ============================================
- * COMPONENT: Header - Com i18n
+ * COMPONENT: Header - Estilo 1minus1.com
  * ============================================
  */
 
@@ -13,7 +13,11 @@ import Link from 'next/link';
 import { navLinks, contactInfo } from '@/data/site-data';
 import { useLanguage } from '@/context/LanguageContext';
 
-export function Header() {
+interface HeaderProps {
+    onContactClick?: () => void;
+}
+
+export function Header({ onContactClick }: HeaderProps) {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
@@ -113,20 +117,33 @@ export function Header() {
                         </motion.div>
                     </Link>
 
-                    {/* Tagline */}
-                    <div className={`hidden lg:block absolute left-1/2 -translate-x-1/2 transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}>
-                        <span className="text-[var(--text-muted)] text-sm tracking-widest uppercase">
-                            {t('hero.tagline') as string}
-                        </span>
-                    </div>
+                    {/* Actions: Contact + Language + Menu */}
+                    <div className="flex items-center gap-8">
+                        {/* Contact Button - Estilo 1minus1 */}
+                        <motion.button
+                            className={`hidden md:block relative z-[250] text-sm font-medium transition-colors ${isMenuOpen
+                                ? 'text-white/60 hover:text-white'
+                                : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                                }`}
+                            onClick={() => {
+                                if (onContactClick) {
+                                    onContactClick();
+                                } else {
+                                    const event = new CustomEvent('openContactModal');
+                                    window.dispatchEvent(event);
+                                }
+                            }}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                        >
+                            {t('nav.contact') as string || 'Contact'}
+                        </motion.button>
 
-                    {/* Actions: Language + Menu */}
-                    <div className="flex items-center gap-6">
                         {/* Language Toggle */}
                         <motion.button
                             className={`relative z-[250] flex items-center gap-1 text-sm font-medium transition-colors ${isMenuOpen
-                                    ? 'text-white/60 hover:text-white'
-                                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                                ? 'text-white/60 hover:text-white'
+                                : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                                 }`}
                             onClick={toggleLanguage}
                             whileTap={{ scale: 0.95 }}
@@ -212,6 +229,33 @@ export function Header() {
                                         </Link>
                                     </div>
                                 ))}
+
+                                {/* Contact - Abre modal em vez de navegar */}
+                                <div className="overflow-hidden">
+                                    <button
+                                        onClick={() => {
+                                            handleLinkClick();
+                                            setTimeout(() => {
+                                                const event = new CustomEvent('openContactModal');
+                                                window.dispatchEvent(event);
+                                            }, 400);
+                                        }}
+                                        className="menu-link block group text-left"
+                                    >
+                                        <div className="flex items-baseline gap-4">
+                                            <span className="text-white/30 text-lg font-medium">
+                                                0{navLinks.length + 1}
+                                            </span>
+                                            <motion.span
+                                                className="font-display text-[clamp(2.5rem,8vw,6rem)] font-bold text-white leading-none"
+                                                whileHover={{ x: 20 }}
+                                                transition={{ duration: 0.3 }}
+                                            >
+                                                {t('nav.contact') as string || 'Contact'}
+                                            </motion.span>
+                                        </div>
+                                    </button>
+                                </div>
                             </nav>
 
                             {/* Menu Footer - Com dados reais */}
