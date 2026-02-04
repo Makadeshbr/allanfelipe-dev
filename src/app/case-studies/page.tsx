@@ -14,7 +14,10 @@ import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, Clock, Users, Zap } from 'lucide-react';
+import Image from 'next/image';
 import { projects } from '@/data/site-data';
+import { FloatingShapes } from '@/components/ui/FloatingShapes';
+import { AnimatedHeadline, RevealText } from '@/components/ui/SplitText';
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
@@ -71,32 +74,30 @@ export default function CaseStudiesPage() {
 
     return (
         <>
-            {/* Hero */}
-            <section ref={heroRef} className="min-h-[50vh] flex items-center pt-32 pb-12 bg-[var(--bg-primary)]">
-                <div className="container">
-                    <div className="overflow-hidden mb-4">
-                        <p className="reveal-line text-[var(--accent-primary)] text-sm uppercase tracking-[0.5em] font-medium">
+            {/* Hero with Floating Shapes */}
+            <section ref={heroRef} className="min-h-[50vh] flex items-center pt-32 pb-12 bg-[var(--bg-primary)] relative overflow-hidden">
+                {/* Floating Dev Shapes */}
+                <FloatingShapes />
+                <div className="container relative z-10">
+                    {/* Tagline */}
+                    <RevealText className="mb-4" delay={0.2}>
+                        <p className="text-[var(--accent-primary)] text-sm uppercase tracking-[0.5em] font-medium">
                             Case Studies
                         </p>
-                    </div>
+                    </RevealText>
 
-                    <h1 className="font-display text-[clamp(2rem,5vw,4rem)] font-bold leading-[1.1] mb-8">
-                        <div className="overflow-hidden">
-                            <span className="reveal-line block">Histórias de</span>
-                        </div>
-                        <div className="overflow-hidden">
-                            <span className="reveal-line block text-gradient">Sucesso</span>
-                        </div>
-                    </h1>
+                    {/* Headline com animação split */}
+                    <AnimatedHeadline
+                        lines={['Histórias de', 'Sucesso']}
+                        className="font-display text-[clamp(2rem,5vw,4rem)] font-bold leading-[1.1] mb-8"
+                        highlightLast={true}
+                        delay={0.3}
+                    />
 
-                    <motion.p
-                        initial={{ y: 50, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ duration: 0.8, delay: 0.6 }}
-                        className="text-[var(--text-secondary)] text-xl max-w-2xl"
-                    >
+                    {/* Description */}
+                    <RevealText className="text-[var(--text-secondary)] text-xl max-w-2xl" delay={0.7}>
                         Análises aprofundadas dos projetos mais impactantes. Desafios, soluções e resultados.
-                    </motion.p>
+                    </RevealText>
                 </div>
             </section>
 
@@ -176,65 +177,106 @@ export default function CaseStudiesPage() {
                 </section>
             )}
 
-            {/* Case Studies List */}
-            <section className="section bg-[var(--bg-primary)]">
-                <div className="container">
-                    <h2 className="font-display text-h2 font-bold mb-12">
-                        Todos os <span className="text-gradient">Cases</span>
-                    </h2>
-
-                    <div ref={listRef} className="space-y-8">
-                        {caseStudies.map((study, i) => (
-                            <motion.article
-                                key={study.id}
-                                className="case-item group"
-                                whileHover={{ x: 8 }}
-                                transition={{ duration: 0.3 }}
+            {/* Case Studies - Fullwidth Cards */}
+            <section className="bg-[var(--bg-primary)]">
+                <div ref={listRef} className="space-y-0">
+                    {caseStudies.map((study, i) => (
+                        <motion.article
+                            key={study.id}
+                            className="case-item group"
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true, margin: '-100px' }}
+                            transition={{ duration: 0.8, delay: i * 0.1 }}
+                        >
+                            <a
+                                href={`/case-studies/${study.id}`}
+                                className="block relative overflow-hidden"
                             >
-                                <a
-                                    href={`/case-studies/${study.id}`}
-                                    className="grid grid-cols-1 lg:grid-cols-12 gap-8 p-8 bg-[var(--bg-card)] rounded-2xl border border-white/5 hover:border-[var(--accent-primary)]/30 transition-colors"
-                                >
-                                    {/* Number */}
-                                    <div className="lg:col-span-1 flex items-center">
-                                        <span className="text-5xl font-bold text-[var(--accent-primary)]/20">
-                                            {String(i + 1).padStart(2, '0')}
-                                        </span>
+                                {/* Fullwidth Container */}
+                                <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[70vh] bg-[var(--bg-card)] border-b border-white/5">
+                                    {/* Image Side (60%) */}
+                                    <div className={`lg:col-span-7 relative overflow-hidden ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
+                                        {study.image ? (
+                                            <Image
+                                                src={study.image}
+                                                alt={study.title}
+                                                fill
+                                                className="object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
+                                            />
+                                        ) : (
+                                            <div className={`absolute inset-0 bg-gradient-to-br ${study.gradient}`}>
+                                                <div
+                                                    className="absolute inset-0 opacity-[0.08]"
+                                                    style={{
+                                                        backgroundImage: `linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)`,
+                                                        backgroundSize: '50px 50px',
+                                                    }}
+                                                />
+                                            </div>
+                                        )}
+                                        {/* Overlay gradient */}
+                                        <div className={`absolute inset-0 bg-gradient-to-${i % 2 === 1 ? 'l' : 'r'} from-[var(--bg-card)] via-[var(--bg-card)]/50 to-transparent`} />
+
+                                        {/* Number overlay */}
+                                        <div className="absolute bottom-8 left-8">
+                                            <span className="text-[8rem] font-bold text-white/5 leading-none">
+                                                {String(i + 1).padStart(2, '0')}
+                                            </span>
+                                        </div>
                                     </div>
 
-                                    {/* Content */}
-                                    <div className="lg:col-span-8">
-                                        <div className="flex flex-wrap gap-2 mb-3">
+                                    {/* Content Side (40%) */}
+                                    <div className={`lg:col-span-5 flex flex-col justify-center p-8 lg:p-16 ${i % 2 === 1 ? 'lg:order-1' : ''}`}>
+                                        {/* Client/Category Tag */}
+                                        <div className="mb-6">
+                                            <span className="text-[var(--accent-primary)] text-sm uppercase tracking-[0.3em] font-medium">
+                                                {study.category}
+                                            </span>
+                                        </div>
+
+                                        {/* Title - Grande e impactante */}
+                                        <h2 className="font-display text-[clamp(2rem,4vw,3.5rem)] font-bold leading-[1.1] mb-4 group-hover:text-[var(--accent-primary)] transition-colors duration-500">
+                                            {study.title}
+                                        </h2>
+
+                                        {/* Subtitle */}
+                                        <p className="text-[var(--text-secondary)] text-lg mb-8 leading-relaxed">
+                                            {study.description}
+                                        </p>
+
+                                        {/* Tags */}
+                                        <div className="flex flex-wrap gap-2 mb-8">
                                             {study.tags.map((tag) => (
                                                 <span
                                                     key={tag}
-                                                    className="px-2 py-0.5 text-xs bg-[var(--bg-secondary)] rounded text-[var(--text-muted)]"
+                                                    className="px-3 py-1.5 text-xs bg-white/5 text-[var(--text-muted)] rounded-full"
                                                 >
                                                     {tag}
                                                 </span>
                                             ))}
                                         </div>
 
-                                        <h3 className="font-display text-2xl font-bold mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
-                                            {study.title}
-                                        </h3>
-
-                                        <p className="text-[var(--text-secondary)]">
-                                            {study.description}
-                                        </p>
+                                        {/* CTA with animated arrow */}
+                                        <div className="flex items-center gap-3 text-[var(--text-primary)] group/cta">
+                                            <span className="text-sm font-medium uppercase tracking-wider">
+                                                Read Article
+                                            </span>
+                                            <motion.span
+                                                className="inline-block"
+                                                initial={{ x: 0 }}
+                                                whileHover={{ x: 8 }}
+                                            >
+                                                <ArrowRight size={18} className="group-hover:text-[var(--accent-primary)] transition-colors" />
+                                            </motion.span>
+                                            {/* Underline animado */}
+                                            <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[var(--accent-primary)] group-hover:w-24 transition-all duration-500" />
+                                        </div>
                                     </div>
-
-                                    {/* CTA */}
-                                    <div className="lg:col-span-3 flex items-center justify-end">
-                                        <span className="flex items-center gap-2 text-[var(--accent-primary)] opacity-0 group-hover:opacity-100 transition-opacity">
-                                            Ver Case
-                                            <ArrowRight size={18} />
-                                        </span>
-                                    </div>
-                                </a>
-                            </motion.article>
-                        ))}
-                    </div>
+                                </div>
+                            </a>
+                        </motion.article>
+                    ))}
                 </div>
             </section>
 
@@ -259,3 +301,4 @@ export default function CaseStudiesPage() {
         </>
     );
 }
+

@@ -16,6 +16,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import { projects } from '@/data/site-data';
+import { FloatingShapes } from '@/components/ui/FloatingShapes';
+import { AnimatedHeadline, RevealText } from '@/components/ui/SplitText';
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
@@ -73,32 +75,30 @@ export default function ProjectsPage() {
 
     return (
         <>
-            {/* Hero */}
-            <section ref={heroRef} className="min-h-[50vh] flex items-center pt-32 pb-12 bg-[var(--bg-primary)]">
-                <div className="container">
-                    <div className="overflow-hidden mb-4">
-                        <p className="reveal-line text-[var(--accent-primary)] text-sm uppercase tracking-[0.5em] font-medium">
+            {/* Hero with Floating Shapes */}
+            <section ref={heroRef} className="min-h-[50vh] flex items-center pt-32 pb-12 bg-[var(--bg-primary)] relative overflow-hidden">
+                {/* Floating Dev Shapes */}
+                <FloatingShapes />
+                <div className="container relative z-10">
+                    {/* Tagline */}
+                    <RevealText className="mb-4" delay={0.2}>
+                        <p className="text-[var(--accent-primary)] text-sm uppercase tracking-[0.5em] font-medium">
                             Portfolio
                         </p>
-                    </div>
+                    </RevealText>
 
-                    <h1 className="font-display text-[clamp(2rem,5vw,4rem)] font-bold leading-[1.1] mb-8">
-                        <div className="overflow-hidden">
-                            <span className="reveal-line block">Projetos em</span>
-                        </div>
-                        <div className="overflow-hidden">
-                            <span className="reveal-line block text-gradient">Destaque</span>
-                        </div>
-                    </h1>
+                    {/* Headline com animação split */}
+                    <AnimatedHeadline
+                        lines={['Projetos em', 'Destaque']}
+                        className="font-display text-[clamp(2rem,5vw,4rem)] font-bold leading-[1.1] mb-8"
+                        highlightLast={true}
+                        delay={0.3}
+                    />
 
-                    <motion.p
-                        initial={{ y: 50, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ duration: 0.8, delay: 0.6 }}
-                        className="text-[var(--text-secondary)] text-xl max-w-2xl"
-                    >
+                    {/* Description */}
+                    <RevealText className="text-[var(--text-secondary)] text-xl max-w-2xl" delay={0.7}>
                         Design, desenvolvimento e resultados. Cada projeto conta uma história de transformação digital.
-                    </motion.p>
+                    </RevealText>
                 </div>
             </section>
 
