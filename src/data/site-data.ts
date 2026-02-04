@@ -18,8 +18,8 @@ export const navLinks: NavLink[] = [
 
 /** Métricas/Stats */
 export const stats: Stat[] = [
-    { value: 2, suffix: '+', label: 'Anos de Experiência' },
-    { value: 12, suffix: '+', label: 'Projetos Entregues' },
+    { value: 5, suffix: '+', label: 'Anos de Experiência' },
+    { value: 50, suffix: '+', label: 'Projetos Entregues' },
     { value: 100, suffix: '%', label: 'Clientes Satisfeitos' },
     { value: 24, suffix: '/7', label: 'Suporte Dedicado' },
 ];
@@ -59,44 +59,48 @@ export const services: Service[] = [
 /** Projetos/Portfolio */
 export const projects: Project[] = [
     {
-        id: 'project-1',
-        title: 'App de Gerenciamento',
-        subtitle: 'Aplicativo mobile completo',
-        description: 'Sistema completo de gerenciamento com React Native e Node.js. Interface moderna e performática.',
-        image: '/projects/project-1.jpg',
+        id: 'app-gerenciamento',
+        title: 'Management App',
+        subtitle: 'Sistema de Gestão',
+        description: 'Sistema completo de gestão de tarefas e equipes com foco em produtividade.',
+        image: '/images/cases/mobile.png',
         tags: ['React Native', 'Node.js', 'TypeScript'],
         category: 'mobile',
         featured: true,
+        gradient: 'from-blue-600/40 to-indigo-600/30'
     },
     {
-        id: 'project-2',
-        title: 'E-commerce Platform',
-        subtitle: 'Loja virtual responsiva',
-        description: 'Plataforma de e-commerce com Next.js, integração de pagamentos e painel administrativo.',
-        image: '/projects/project-2.jpg',
+        id: 'ecommerce-platform',
+        title: 'Premium E-commerce',
+        subtitle: 'Loja Virtual',
+        description: 'Plataforma de vendas online com experiência de compra otimizada.',
+        image: '/images/cases/ecommerce.png',
         tags: ['Next.js', 'Stripe', 'Prisma'],
         category: 'fullstack',
         featured: true,
+        gradient: 'from-violet-600/40 to-purple-600/30'
     },
     {
-        id: 'project-3',
-        title: 'Dashboard Analytics',
-        subtitle: 'Painel de dados em tempo real',
-        description: 'Dashboard interativo com gráficos, filtros e exportação de relatórios.',
-        image: '/projects/project-3.jpg',
+        id: 'dashboard-analytics',
+        title: 'Analytics Dashboard',
+        subtitle: 'Data Visualization',
+        description: 'Visualização de dados em tempo real para tomada de decisão estratégica.',
+        image: '/images/cases/dashboard.png',
         tags: ['React', 'D3.js', 'WebSocket'],
         category: 'web',
         featured: true,
+        gradient: 'from-cyan-600/40 to-blue-600/30'
     },
     {
-        id: 'project-4',
-        title: 'Landing Page Premium',
-        subtitle: 'Site institucional animado',
-        description: 'Landing page de alta conversão com animações suaves e design premium.',
-        image: '/projects/project-4.jpg',
+        id: 'landing-premium',
+        title: 'Corporate Website',
+        subtitle: 'Site Institucional',
+        description: 'Landing page de alta conversão para agência digital.',
+        image: '/images/cases/landing.png',
         tags: ['Next.js', 'Framer Motion', 'Tailwind'],
         category: 'landing',
-        featured: false,
+        featured: true,
+        gradient: 'from-slate-600/40 to-gray-600/30'
     },
 ];
 

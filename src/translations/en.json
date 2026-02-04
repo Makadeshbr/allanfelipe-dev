@@ -103,7 +103,25 @@
         },
         "viewAll": "View all cases",
         "viewCase": "View Case Study",
-        "featured": "Featured Project"
+        "featuredBadge": "Featured",
+        "items": {
+            "appManagement": {
+                "title": "Management App",
+                "description": "Complete task and team management system focused on productivity."
+            },
+            "ecommerce": {
+                "title": "Premium E-commerce",
+                "description": "Online sales platform with optimized shopping experience."
+            },
+            "dashboard": {
+                "title": "Analytics Dashboard",
+                "description": "Real-time data visualization for strategic decision making."
+            },
+            "landing": {
+                "title": "Corporate Website",
+                "description": "High-conversion landing page for digital agency."
+            }
+        }
     },
     "clients": {
         "subtitle": "Experience in",

@@ -14,6 +14,7 @@ import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -29,24 +30,28 @@ const casesData = [
         tags: ['React Native', 'Node.js'],
         gradient: 'from-blue-600/40 to-indigo-600/30',
         featured: true,
+        image: '/images/cases/mobile.png'
     },
     {
         id: 'ecommerce-platform',
         translationKey: 'ecommerce',
         tags: ['Next.js', 'Stripe'],
         gradient: 'from-violet-600/40 to-purple-600/30',
+        image: '/images/cases/ecommerce.png'
     },
     {
         id: 'dashboard-analytics',
         translationKey: 'dashboard',
         tags: ['React', 'D3.js'],
         gradient: 'from-cyan-600/40 to-blue-600/30',
+        image: '/images/cases/dashboard.png'
     },
     {
         id: 'landing-premium',
         translationKey: 'landing',
         tags: ['Next.js', 'Framer Motion'],
         gradient: 'from-slate-600/40 to-gray-600/30',
+        image: '/images/cases/landing.png'
     },
 ];
 
@@ -134,7 +139,7 @@ export function FeaturedCases() {
                     </div>
 
                     <Link
-                        href="/case-studies"
+                        href="/projects"
                         className="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors group"
                     >
                         {t('cases.viewAll') as string}
@@ -153,29 +158,35 @@ export function FeaturedCases() {
                             <div className="grid grid-cols-1 lg:grid-cols-2">
                                 {/* Image with Zoom Effect */}
                                 <div className="case-image-wrapper relative aspect-[16/10] lg:aspect-auto lg:min-h-[400px]">
-                                    <div className={`case-image-bg absolute inset-0 bg-gradient-to-br ${featuredCases[0].gradient}`}>
-                                        {/* Grid pattern */}
-                                        <div
-                                            className="absolute inset-0 opacity-[0.08]"
-                                            style={{
-                                                backgroundImage: `
-                        linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)
-                      `,
-                                                backgroundSize: '50px 50px',
-                                            }}
+                                    {featuredCases[0].image ? (
+                                        <Image
+                                            src={featuredCases[0].image}
+                                            alt={featuredCases[0].title}
+                                            fill
+                                            className="object-cover group-hover:scale-105 transition-transform duration-700"
                                         />
-
-                                        {/* Featured badge */}
-                                        <div className="absolute top-6 left-6">
-                                            <span className="px-4 py-2 bg-[var(--accent-primary)] rounded-lg text-xs font-bold text-white uppercase tracking-wider">
-                                                {t('cases.featuredBadge') as string || 'Highlight'}
-                                            </span>
+                                    ) : (
+                                        <div className={`case-image-bg absolute inset-0 bg-gradient-to-br ${featuredCases[0].gradient}`}>
+                                            {/* Grid pattern */}
+                                            <div
+                                                className="absolute inset-0 opacity-[0.08]"
+                                                style={{
+                                                    backgroundImage: `linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)`,
+                                                    backgroundSize: '50px 50px',
+                                                }}
+                                            />
                                         </div>
+                                    )}
 
+                                    {/* Featured badge */}
+                                    <div className="absolute top-6 left-6 z-10">
+                                        <span className="px-4 py-2 bg-[var(--accent-primary)] rounded-lg text-xs font-bold text-white uppercase tracking-wider">
+                                            {t('cases.featuredBadge') as string || 'Highlight'}
+                                        </span>
                                     </div>
+
                                     {/* Hover overlay */}
-                                    <div className="case-image-overlay absolute inset-0 bg-[var(--bg-primary)]/50 opacity-0 group-hover:opacity-100 flex items-center justify-center">
+                                    <div className="case-image-overlay absolute inset-0 bg-[var(--bg-primary)]/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
                                         <div className="p-4 bg-[var(--accent-primary)] rounded-full transform scale-0 group-hover:scale-100 transition-transform duration-300">
                                             <ArrowUpRight size={24} className="text-white" />
                                         </div>
@@ -226,22 +237,28 @@ export function FeaturedCases() {
                                 <div className="relative overflow-hidden rounded-2xl bg-[var(--bg-card)] border border-white/5 hover:border-[var(--accent-primary)]/30 transition-all h-full">
                                     {/* Image with Zoom Effect */}
                                     <div className="case-image-wrapper relative aspect-[4/3]">
-                                        <div className={`case-image-bg absolute inset-0 bg-gradient-to-br ${caseItem.gradient}`}>
-                                            {/* Grid pattern */}
-                                            <div
-                                                className="absolute inset-0 opacity-[0.1]"
-                                                style={{
-                                                    backgroundImage: `
-                          linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px),
-                          linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)
-                        `,
-                                                    backgroundSize: '30px 30px',
-                                                }}
+                                        {caseItem.image ? (
+                                            <Image
+                                                src={caseItem.image}
+                                                alt={caseItem.title}
+                                                fill
+                                                className="object-cover group-hover:scale-105 transition-transform duration-700"
                                             />
+                                        ) : (
+                                            <div className={`case-image-bg absolute inset-0 bg-gradient-to-br ${caseItem.gradient}`}>
+                                                {/* Grid pattern */}
+                                                <div
+                                                    className="absolute inset-0 opacity-[0.1]"
+                                                    style={{
+                                                        backgroundImage: `linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)`,
+                                                        backgroundSize: '30px 30px',
+                                                    }}
+                                                />
+                                            </div>
+                                        )}
 
-                                        </div>
                                         {/* Hover overlay */}
-                                        <div className="case-image-overlay absolute inset-0 bg-[var(--bg-primary)]/50 opacity-0 group-hover:opacity-100 flex items-center justify-center">
+                                        <div className="case-image-overlay absolute inset-0 bg-[var(--bg-primary)]/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
                                             <div className="p-3 bg-[var(--accent-primary)] rounded-full transform scale-0 group-hover:scale-100 transition-transform duration-300">
                                                 <ArrowUpRight size={20} className="text-white" />
                                             </div>

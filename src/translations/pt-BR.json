@@ -103,7 +103,25 @@
         },
         "viewAll": "Ver todos os cases",
         "viewCase": "Ver Case Study",
-        "featured": "Featured Project"
+        "featuredBadge": "Destaque",
+        "items": {
+            "appManagement": {
+                "title": "App de Gerenciamento",
+                "description": "Sistema completo de gestão de tarefas e equipes com foco em produtividade."
+            },
+            "ecommerce": {
+                "title": "E-commerce Premium",
+                "description": "Plataforma de vendas online com experiência de compra otimizada."
+            },
+            "dashboard": {
+                "title": "Analytics Dashboard",
+                "description": "Visualização de dados em tempo real para tomada de decisão estratégica."
+            },
+            "landing": {
+                "title": "Site Institucional",
+                "description": "Landing page de alta conversão para agência digital."
+            }
+        }
     },
     "clients": {
         "subtitle": "Experiência em",

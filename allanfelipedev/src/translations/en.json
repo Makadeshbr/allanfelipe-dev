@@ -1,0 +1,209 @@
+{
+  "nav": {
+    "about": "About",
+    "services": "Services",
+    "projects": "Projects",
+    "caseStudies": "Cases",
+    "contact": "Contact"
+  },
+  "header": {
+    "menu": "Menu",
+    "close": "Close",
+    "email": "Email",
+    "tagline": "Distinct. Always."
+  },
+  "hero": {
+    "tagline": "Full-Stack Developer",
+    "title": ["Branding, Websites", "& Applications", "for digital projects."],
+    "cta": "Watch Showreel",
+    "specializedIn": "Specialized in",
+    "scroll": "Scroll",
+    "rotatingWords": ["Web Apps", "Mobile Apps", "Landing Pages", "REST APIs", "Dashboards", "E-commerce"]
+  },
+  "services": {
+    "subtitle": "What we do",
+    "title": ["Full-Stack Developer", "focused on results."],
+    "categories": {
+      "websites": {
+        "title": "Websites",
+        "items": ["Landing pages", "Corporate sites", "Web experiences"]
+      },
+      "design": {
+        "title": "Design",
+        "items": ["UI/UX Design", "Web design", "Design systems"]
+      },
+      "apps": {
+        "title": "Apps",
+        "items": ["React Native", "Next.js Apps", "PWAs"]
+      },
+      "growth": {
+        "title": "Growth",
+        "items": ["Technical SEO", "Performance", "Analytics"]
+      }
+    },
+    "cta": {
+      "title": "Results are everything. Simple as that.",
+      "description": "From websites to complex applications, I help companies grow through technology.",
+      "button": "View Services"
+    }
+  },
+  "stats": {
+    "subtitle": "Results are everything",
+    "title": ["Results that make", "a difference."],
+    "description": "From award-winning websites to complex experiences, I help companies use the web to grow, convert, and reach new markets.",
+    "items": [
+      {
+        "value": "+200%",
+        "label": "Conversion increase",
+        "description": "Average improvement in projects"
+      },
+      {
+        "value": "30+",
+        "label": "Clients served",
+        "description": "Startups and companies"
+      },
+      {
+        "value": "50+",
+        "label": "Projects delivered",
+        "description": "Web and mobile"
+      },
+      {
+        "value": "5+",
+        "label": "Years of experience",
+        "description": "Full-stack development"
+      }
+    ]
+  },
+  "about": {
+    "subtitle": "About me",
+    "title": ["Creative ideas,", "flawless execution."],
+    "description": "I'm a Full-Stack developer passionate about creating digital experiences that make a difference. From concept to deploy, I transform ideas into functional, scalable, and visually impressive products.",
+    "capabilities": [
+      {
+        "title": "Clean Code",
+        "description": "TypeScript, SOLID patterns, tests and documentation."
+      },
+      {
+        "title": "Design & UX",
+        "description": "Modern, responsive and intuitive interfaces."
+      },
+      {
+        "title": "Performance",
+        "description": "Optimization, technical SEO and Core Web Vitals."
+      },
+      {
+        "title": "Deploy & DevOps",
+        "description": "CI/CD, containers and cloud infrastructure."
+      }
+    ],
+    "techStack": "Tech Stack",
+    "experience": {
+      "years": "2+",
+      "yearsLabel": "Years of experience",
+      "projects": "12+",
+      "projectsLabel": "Projects delivered"
+    }
+  },
+  "clients": {
+    "subtitle": "Experience in",
+    "title": "Various niches",
+    "types": ["Startups", "Agencies", "E-commerce", "SaaS", "Fintechs", "Healthtech"]
+  },
+  "projects": {
+    "subtitle": "Portfolio",
+    "title": "Selected projects",
+    "filters": {
+      "all": "All",
+      "web": "Web",
+      "mobile": "Mobile",
+      "saas": "SaaS",
+      "ecommerce": "E-commerce"
+    },
+    "viewCase": "View Case Study",
+    "statsBar": {
+      "projects": "Projects",
+      "clients": "Clients",
+      "years": "Years",
+      "countries": "Countries"
+    }
+  },
+  "featuredCases": {
+    "subtitle": "Case Studies",
+    "title": ["Creative marketing for", "digital projects."],
+    "viewAll": "View all cases",
+    "featured": "Featured Project",
+    "viewCase": "View Case Study"
+  },
+  "contact": {
+    "subtitle": "Contact",
+    "title": ["Let's build something", "amazing together?"],
+    "description": "Have a project in mind? Tell me your idea and let's turn it into reality.",
+    "info": {
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "location": "Location",
+      "responseTime": "Response time",
+      "responseValue": "Within 24 hours"
+    },
+    "form": {
+      "name": "Your name *",
+      "namePlaceholder": "What's your name?",
+      "email": "Your email *",
+      "emailPlaceholder": "your@email.com",
+      "projectType": "Project type",
+      "selectDefault": "Select...",
+      "budget": "Estimated budget",
+      "message": "Tell us about your project *",
+      "messagePlaceholder": "Describe your idea, goals and desired timeline...",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "serviceTypes": [
+        "Landing Page",
+        "Website / Web System",
+        "Mobile App",
+        "Automation",
+        "Other"
+      ],
+      "budgetOptions": [
+        "$500 - $1,500",
+        "$1,500 - $3,000",
+        "$3,000 - $5,000",
+        "Above $5,000",
+        "Not sure yet"
+      ]
+    },
+    "validation": {
+      "nameRequired": "Name is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Invalid email",
+      "messageRequired": "Message is required",
+      "messageTooShort": "Message too short"
+    },
+    "success": {
+      "title": "Message sent!",
+      "description": "Thank you for reaching out. I'll review your message and get back to you soon.",
+      "sendAnother": "Send another message"
+    },
+    "error": "Error sending. Please try again or contact via WhatsApp.",
+    "footer": "I respond within 24 business hours"
+  },
+  "footer": {
+    "headline": ["Different where it matters.", "Obsessive where it counts."],
+    "cta": "Get in touch",
+    "location": "Brazil - Remote Service",
+    "locationText": ["100% remote service", "worldwide"],
+    "navigation": "Navigation",
+    "services": "Services",
+    "servicesList": ["Web Development", "Mobile Apps", "UI/UX Design", "Backend APIs"],
+    "social": "Social",
+    "legal": "Legal",
+    "legalLinks": ["Terms of Use", "Privacy"],
+    "copyright": "All rights reserved."
+  },
+  "showreel": {
+    "close": "Close",
+    "fallback": "Your browser does not support the video element.",
+    "label": "Showreel 2024",
+    "title": "Allan Felipe — Portfolio"
+  }
+}

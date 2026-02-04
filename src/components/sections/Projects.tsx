@@ -24,12 +24,8 @@ if (typeof window !== 'undefined') {
 
 const categories = ['Todos', 'Web', 'Mobile', 'SaaS', 'E-commerce'];
 
-// Map projects to images
-const projectImages: Record<string, string> = {
-    'fintech-dashboard': '/images/cases/dashboard.png',
-    'mobile-banking': '/images/cases/mobile.png',
-    'ecommerce-platform': '/images/cases/ecommerce.png',
-};
+// Map projects to images - REMOVIDO pois agora vem do site-data
+// const projectImages: Record<string, string> = { ... };
 
 export function Projects() {
     const [activeFilter, setActiveFilter] = useState('Todos');
@@ -82,8 +78,8 @@ export function Projects() {
                                 key={cat}
                                 onClick={() => setActiveFilter(cat)}
                                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${activeFilter === cat
-                                        ? 'bg-[var(--accent-primary)] text-white'
-                                        : 'bg-[var(--bg-card)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                                    ? 'bg-[var(--accent-primary)] text-white'
+                                    : 'bg-[var(--bg-card)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                                     }`}
                             >
                                 {cat}
@@ -108,9 +104,9 @@ export function Projects() {
                                 <div className="relative overflow-hidden rounded-2xl bg-[var(--bg-card)] border border-white/5 hover:border-[var(--accent-primary)]/30 transition-all">
                                     {/* Image */}
                                     <div className="relative aspect-[16/10] overflow-hidden">
-                                        {projectImages[project.id] ? (
+                                        {project.image ? (
                                             <Image
-                                                src={projectImages[project.id]}
+                                                src={project.image}
                                                 alt={project.title}
                                                 fill
                                                 className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -121,9 +117,9 @@ export function Projects() {
                                                     className="absolute inset-0 opacity-[0.1]"
                                                     style={{
                                                         backgroundImage: `
-                              linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)
-                            `,
+                                                      linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px),
+                                                      linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)
+                                                    `,
                                                         backgroundSize: '40px 40px',
                                                     }}
                                                 />
