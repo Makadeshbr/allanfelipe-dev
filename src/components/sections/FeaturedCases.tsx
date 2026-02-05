@@ -194,8 +194,8 @@ export function FeaturedCases() {
                                 </div>
 
                                 {/* Content */}
-                                <div className="p-8 lg:p-12 flex flex-col justify-center">
-                                    <div className="flex flex-wrap gap-2 mb-4">
+                                <div className="flex flex-col justify-center" style={{ padding: '3rem' }}>
+                                    <div className="flex flex-wrap gap-2 mb-6">
                                         {featuredCases[0].tags.map((tag) => (
                                             <span
                                                 key={tag}
@@ -266,8 +266,8 @@ export function FeaturedCases() {
                                     </div>
 
                                     {/* Content */}
-                                    <div className="p-6">
-                                        <h3 className="font-display text-xl font-bold mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
+                                    <div style={{ padding: '2rem' }}>
+                                        <h3 className="font-display text-xl font-bold mb-3 group-hover:text-[var(--accent-primary)] transition-colors">
                                             {caseItem.title}
                                         </h3>
                                         <p className="text-[var(--text-secondary)] text-sm">

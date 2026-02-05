@@ -195,17 +195,18 @@ export default function AboutPage() {
                         {capabilities.map((cap, i) => (
                             <motion.div
                                 key={i}
-                                className="capability-card p-8 bg-[var(--bg-card)] rounded-2xl border border-white/5 group"
-                                whileHover={{ y: -8, borderColor: 'rgba(0, 255, 136, 0.3)' }}
+                                className="capability-card bg-[var(--bg-card)] rounded-2xl border border-white/5 group"
+                                style={{ padding: '2.5rem' }}
+                                whileHover={{ y: -8, borderColor: 'rgba(79, 140, 255, 0.3)' }}
                                 transition={{ duration: 0.3 }}
                             >
                                 <div className="w-14 h-14 rounded-xl bg-[var(--accent-primary)]/10 flex items-center justify-center text-[var(--accent-primary)] mb-5 group-hover:scale-110 transition-transform">
                                     {cap.icon}
                                 </div>
-                                <h3 className="font-display text-xl font-semibold mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
+                                <h3 className="font-display text-xl font-semibold mb-3 group-hover:text-[var(--accent-primary)] transition-colors">
                                     {cap.title}
                                 </h3>
-                                <p className="text-[var(--text-secondary)] text-sm">
+                                <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
                                     {cap.description}
                                 </p>
                             </motion.div>
@@ -228,8 +229,9 @@ export default function AboutPage() {
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: i * 0.03, ease: [0.34, 1.56, 0.64, 1] }}
-                                whileHover={{ scale: 1.1, backgroundColor: 'rgba(0, 255, 136, 0.2)' }}
-                                className="px-5 py-2.5 bg-[var(--bg-card)] rounded-full text-[var(--text-secondary)] text-sm cursor-default transition-colors"
+                                whileHover={{ scale: 1.1, backgroundColor: 'rgba(79, 140, 255, 0.2)' }}
+                                className="bg-[var(--bg-card)] rounded-full text-[var(--text-secondary)] text-sm cursor-default transition-colors"
+                                style={{ padding: '0.75rem 1.5rem' }}
                             >
                                 {tech}
                             </motion.span>
@@ -252,7 +254,8 @@ export default function AboutPage() {
                         {clients.map((client) => (
                             <span
                                 key={client}
-                                className="client-item px-6 py-3 bg-[var(--bg-card)] rounded-xl text-[var(--text-primary)] font-medium"
+                                className="client-item bg-[var(--bg-card)] rounded-xl text-[var(--text-primary)] font-medium"
+                                style={{ padding: '1rem 2rem' }}
                             >
                                 {client}
                             </span>

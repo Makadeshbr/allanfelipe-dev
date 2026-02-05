@@ -153,27 +153,28 @@ export function Stats() {
                     {stats.map((stat) => (
                         <motion.div
                             key={stat.label as string}
-                            className="stat-card group relative p-8 rounded-2xl bg-[var(--bg-card)] border border-white/5 hover:border-[var(--accent-primary)]/30 transition-all"
+                            className="stat-card group relative rounded-2xl bg-[var(--bg-card)] border border-white/5 hover:border-[var(--accent-primary)]/30 transition-all"
+                            style={{ padding: '3rem' }}
                             whileHover={{ y: -8, scale: 1.02 }}
                             transition={{ duration: 0.3 }}
                         >
                             {/* Icon */}
-                            <div className="mb-6">
+                            <div className="mb-5">
                                 <div className="w-12 h-12 rounded-xl bg-[var(--accent-primary)]/10 flex items-center justify-center group-hover:bg-[var(--accent-primary)]/20 transition-colors">
                                     <stat.icon size={24} className="text-[var(--accent-primary)]" />
                                 </div>
                             </div>
 
                             {/* Number */}
-                            <div className="font-display text-5xl font-bold mb-2 text-[var(--text-primary)]">
+                            <div className="font-display text-5xl font-bold mb-3 text-[var(--text-primary)]">
                                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                             </div>
 
                             {/* Label */}
-                            <h3 className="font-medium text-[var(--text-primary)] mb-1">
+                            <h3 className="font-medium text-[var(--text-primary)] mb-1 leading-relaxed">
                                 {stat.label as string}
                             </h3>
-                            <p className="text-[var(--text-muted)] text-sm">
+                            <p className="text-[var(--text-muted)] text-sm leading-relaxed">
                                 {stat.description as string}
                             </p>
                         </motion.div>

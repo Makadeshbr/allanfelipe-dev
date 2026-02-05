@@ -107,15 +107,15 @@ export default function ProjectsPage() {
                 <div className="container">
                     <div className="flex flex-wrap justify-center gap-12">
                         <div className="text-center">
-                            <div className="text-4xl font-bold text-gradient">12+</div>
+                            <div className="text-4xl font-bold text-gradient">100+</div>
                             <div className="text-[var(--text-muted)] text-sm">Projetos</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-4xl font-bold text-gradient">100%</div>
-                            <div className="text-[var(--text-muted)] text-sm">Satisfação</div>
+                            <div className="text-4xl font-bold text-gradient">50+</div>
+                            <div className="text-[var(--text-muted)] text-sm">Clientes</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-4xl font-bold text-gradient">2+</div>
+                            <div className="text-4xl font-bold text-gradient">5+</div>
                             <div className="text-[var(--text-muted)] text-sm">Anos</div>
                         </div>
                     </div>
@@ -220,7 +220,7 @@ export default function ProjectsPage() {
                                         </div>
 
                                         {/* Content */}
-                                        <div className="p-6">
+                                        <div style={{ padding: '2rem' }}>
                                             {/* Tags */}
                                             <div className="flex flex-wrap gap-2 mb-4">
                                                 {project.tags.map((tag) => (
@@ -234,12 +234,12 @@ export default function ProjectsPage() {
                                             </div>
 
                                             {/* Title */}
-                                            <h3 className="font-display text-xl font-bold mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
+                                            <h3 className="font-display text-xl font-bold mb-3 group-hover:text-[var(--accent-primary)] transition-colors">
                                                 {project.title}
                                             </h3>
 
                                             {/* Description */}
-                                            <p className="text-[var(--text-secondary)] text-sm mb-4">
+                                            <p className="text-[var(--text-secondary)] text-sm mb-4 leading-relaxed">
                                                 {project.description}
                                             </p>
 

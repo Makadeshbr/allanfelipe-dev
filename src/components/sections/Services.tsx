@@ -108,7 +108,8 @@ export function Services() {
                     {services.map((service) => (
                         <motion.div
                             key={service.title as string}
-                            className="service-card group p-8 rounded-2xl bg-[var(--bg-card)] border border-white/5 hover:border-[var(--accent-primary)]/30 transition-all"
+                            className="service-card group rounded-2xl bg-[var(--bg-card)] border border-white/5 hover:border-[var(--accent-primary)]/30 transition-all"
+                            style={{ padding: '3rem' }}
                             whileHover={{ y: -8 }}
                             transition={{ duration: 0.3 }}
                         >
@@ -123,9 +124,9 @@ export function Services() {
                             </h3>
 
                             {/* Items */}
-                            <ul className="space-y-2">
+                            <ul className="space-y-3">
                                 {service.items && service.items.map((item) => (
-                                    <li key={item} className="text-[var(--text-secondary)] text-sm">
+                                    <li key={item} className="text-[var(--text-secondary)] text-sm leading-relaxed">
                                         {item}
                                     </li>
                                 ))}

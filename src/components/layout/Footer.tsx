@@ -74,11 +74,8 @@ export function Footer() {
                 {/* Info Row - Estilo 1minus1: Location + Email */}
                 <div className="footer-reveal flex flex-col md:flex-row items-center justify-between gap-6 mb-12 pb-8 border-b border-white/5">
                     <div className="text-center md:text-left">
-                        <p className="text-[var(--text-muted)] text-sm mb-1">
-                            {t('footer.location') as string || 'Based in Brazil'}
-                        </p>
                         <p className="text-[var(--text-secondary)] text-sm">
-                            {contactInfo.location}
+                            {t('footer.location') as string || 'Brasil - Atendimento Remoto'}
                         </p>
                     </div>
                     <div className="text-center md:text-right">
@@ -99,13 +96,13 @@ export function Footer() {
                             href="/legal/terms"
                             className="text-[var(--text-muted)] text-sm hover:text-[var(--text-primary)] transition-colors"
                         >
-                            {t('footer.terms') as string || 'Terms'}
+                            {t('footer.legal.terms') as string || 'Terms'}
                         </Link>
                         <Link
                             href="/legal/privacy"
                             className="text-[var(--text-muted)] text-sm hover:text-[var(--text-primary)] transition-colors"
                         >
-                            {t('footer.privacy') as string || 'Privacy'}
+                            {t('footer.legal.privacy') as string || 'Privacy'}
                         </Link>
                     </div>
 

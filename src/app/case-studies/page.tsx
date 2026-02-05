@@ -227,7 +227,7 @@ export default function CaseStudiesPage() {
                                     </div>
 
                                     {/* Content Side (40%) */}
-                                    <div className={`lg:col-span-5 flex flex-col justify-center p-8 lg:p-16 ${i % 2 === 1 ? 'lg:order-1' : ''}`}>
+                                    <div className={`lg:col-span-5 flex flex-col justify-center ${i % 2 === 1 ? 'lg:order-1' : ''}`} style={{ padding: '3.5rem' }}>
                                         {/* Client/Category Tag */}
                                         <div className="mb-6">
                                             <span className="text-[var(--accent-primary)] text-sm uppercase tracking-[0.3em] font-medium">
@@ -236,7 +236,7 @@ export default function CaseStudiesPage() {
                                         </div>
 
                                         {/* Title - Grande e impactante */}
-                                        <h2 className="font-display text-[clamp(2rem,4vw,3.5rem)] font-bold leading-[1.1] mb-4 group-hover:text-[var(--accent-primary)] transition-colors duration-500">
+                                        <h2 className="font-display text-[clamp(2rem,4vw,3.5rem)] font-bold leading-[1.1] mb-6 group-hover:text-[var(--accent-primary)] transition-colors duration-500">
                                             {study.title}
                                         </h2>
 

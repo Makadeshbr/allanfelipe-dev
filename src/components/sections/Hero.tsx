@@ -164,18 +164,18 @@ export function Hero() {
 
                     {/* Headline - Tipografia impactante estilo 1minus1 */}
                     <div ref={headlineRef} className="mb-10">
-                        <h1 className="font-display text-[clamp(3rem,10vw,8rem)] font-bold leading-[0.9] tracking-tight">
-                            <div className="overflow-hidden">
+                        <h1 className="font-display text-[clamp(3rem,10vw,8rem)] font-bold leading-[0.95] tracking-tight">
+                            <div className="overflow-hidden pb-1">
                                 <span className="headline-line block text-[var(--text-primary)]">
                                     {t('hero.title.line1') as string}
                                 </span>
                             </div>
-                            <div className="overflow-hidden">
+                            <div className="overflow-hidden pb-1">
                                 <span className="headline-line block text-gradient">
                                     {t('hero.title.line2') as string}
                                 </span>
                             </div>
-                            <div className="overflow-hidden">
+                            <div className="overflow-hidden pb-1">
                                 <span className="headline-line block text-[var(--text-muted)]">
                                     {t('hero.title.line3') as string}
                                 </span>
@@ -184,10 +184,11 @@ export function Hero() {
                     </div>
 
                     {/* Showreel button */}
-                    <div ref={rotatingRef} className="mb-10">
+                    <div ref={rotatingRef} className="mb-10" style={{ marginTop: '2rem' }}>
                         <button
                             onClick={() => setShowreelOpen(true)}
-                            className="flex items-center gap-4 text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors group"
+                            className="flex items-center text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors group"
+                            style={{ gap: '1rem' }}
                         >
                             <div className="relative w-14 h-14 rounded-full border-2 border-current flex items-center justify-center group-hover:border-[var(--accent-primary)] transition-colors">
                                 <motion.div
