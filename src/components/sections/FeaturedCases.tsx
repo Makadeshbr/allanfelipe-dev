@@ -1,12 +1,3 @@
-/**
- * ============================================
- * COMPONENT: Featured Cases - Enhanced
- * ============================================
- * 
- * Grid com Featured Project destacado
- * Estilo exato do 1minus1.com
- */
-
 'use client';
 
 import { useRef, useEffect } from 'react';
@@ -22,7 +13,6 @@ if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-// IDs dos cases para tradução e metadados visuais que não mudam
 const casesData = [
     {
         id: 'app-gerenciamento',
@@ -62,15 +52,16 @@ export function FeaturedCases() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Header reveals
+            // Header reveals with warp effect
             if (headerRef.current) {
                 const lines = headerRef.current.querySelectorAll('.reveal-line');
                 lines.forEach((line, i) => {
                     gsap.fromTo(
                         line,
-                        { y: '100%' },
+                        { y: '100%', rotation: -3 },
                         {
                             y: '0%',
+                            rotation: 0,
                             duration: 1.2,
                             ease: 'power4.out',
                             scrollTrigger: {
@@ -105,12 +96,30 @@ export function FeaturedCases() {
                     }
                 );
             });
+
+            // Parallax on collage media (inner image moves slower than scroll)
+            const collageMedias = sectionRef.current?.querySelectorAll('.collage__media');
+            collageMedias?.forEach((media) => {
+                gsap.fromTo(
+                    media,
+                    { yPercent: -10 },
+                    {
+                        yPercent: 10,
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: media.closest('.collage'),
+                            start: 'top bottom',
+                            end: 'bottom top',
+                            scrub: true,
+                        },
+                    }
+                );
+            });
         }, sectionRef);
 
         return () => ctx.revert();
     }, []);
 
-    // Preparar cases traduzidos
     const featuredCases = casesData.map(c => ({
         ...c,
         title: t(`cases.items.${c.translationKey}.title`) as string,
@@ -121,7 +130,7 @@ export function FeaturedCases() {
         <section ref={sectionRef} className="section bg-[var(--bg-primary)]">
             <div className="container">
                 {/* Header */}
-                <div ref={headerRef} className="flex flex-col lg:flex-row lg:items-end justify-between mb-20 gap-8">
+                <div ref={headerRef} className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 md:mb-20 gap-6 md:gap-8">
                     <div>
                         <div className="overflow-hidden mb-4">
                             <p className="reveal-line text-[var(--accent-primary)] text-sm uppercase tracking-[0.5em] font-medium">
@@ -147,7 +156,7 @@ export function FeaturedCases() {
                     </Link>
                 </div>
 
-                {/* Featured Project - Destacado */}
+                {/* Featured Project - Collage Style */}
                 <motion.article
                     className="case-card group mb-12"
                     whileHover={{ y: -8 }}
@@ -156,27 +165,42 @@ export function FeaturedCases() {
                     <Link href={`/case-studies/${featuredCases[0].id}`}>
                         <div className="relative overflow-hidden rounded-2xl bg-[var(--bg-card)] border border-white/5 hover:border-[var(--accent-primary)]/30 transition-all">
                             <div className="grid grid-cols-1 lg:grid-cols-2">
-                                {/* Image with Zoom Effect */}
-                                <div className="case-image-wrapper relative aspect-[16/10] lg:aspect-auto lg:min-h-[400px]">
-                                    {featuredCases[0].image ? (
-                                        <Image
-                                            src={featuredCases[0].image}
-                                            alt={featuredCases[0].title}
-                                            fill
-                                            className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
-                                        />
-                                    ) : (
-                                        <div className={`case-image-bg absolute inset-0 bg-gradient-to-br ${featuredCases[0].gradient}`}>
-                                            {/* Grid pattern */}
-                                            <div
-                                                className="absolute inset-0 opacity-[0.08]"
-                                                style={{
-                                                    backgroundImage: `linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)`,
-                                                    backgroundSize: '50px 50px',
-                                                }}
+                                {/* Collage Image System */}
+                                <div className="collage relative aspect-[16/10] lg:aspect-auto lg:min-h-[400px]">
+                                    {/* Backdrop blur layer */}
+                                    {featuredCases[0].image && (
+                                        <div className="collage__backdrop">
+                                            <Image
+                                                src={featuredCases[0].image}
+                                                alt=""
+                                                fill
+                                                className="object-cover"
+                                                aria-hidden="true"
                                             />
                                         </div>
                                     )}
+
+                                    {/* Mask layer */}
+                                    <div className="collage__mask">
+                                        {featuredCases[0].image ? (
+                                            <Image
+                                                src={featuredCases[0].image}
+                                                alt={featuredCases[0].title}
+                                                fill
+                                                className="collage__media object-cover"
+                                            />
+                                        ) : (
+                                            <div className={`absolute inset-0 bg-gradient-to-br ${featuredCases[0].gradient}`}>
+                                                <div
+                                                    className="absolute inset-0 opacity-[0.08]"
+                                                    style={{
+                                                        backgroundImage: `linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)`,
+                                                        backgroundSize: '50px 50px',
+                                                    }}
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
 
                                     {/* Featured badge */}
                                     <div className="absolute top-6 left-6 z-10">
@@ -185,8 +209,11 @@ export function FeaturedCases() {
                                         </span>
                                     </div>
 
-                                    {/* Hover overlay - mais suave */}
-                                    <div className="case-image-overlay absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 flex items-end justify-end p-6 transition-opacity duration-500">
+                                    {/* Blend-difference layer */}
+                                    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 blend-difference transition-opacity duration-700 z-[5]" />
+
+                                    {/* Hover overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 flex items-end justify-end p-6 transition-opacity duration-500 z-10">
                                         <div className="p-4 bg-[var(--accent-primary)] rounded-full transform scale-0 group-hover:scale-100 transition-transform duration-300 delay-100">
                                             <ArrowUpRight size={24} className="text-white" />
                                         </div>
@@ -194,7 +221,7 @@ export function FeaturedCases() {
                                 </div>
 
                                 {/* Content */}
-                                <div className="flex flex-col justify-center" style={{ padding: '3rem' }}>
+                                <div className="flex flex-col justify-center p-6 md:p-12">
                                     <div className="flex flex-wrap gap-2 mb-6">
                                         {featuredCases[0].tags.map((tag) => (
                                             <span
@@ -224,7 +251,7 @@ export function FeaturedCases() {
                     </Link>
                 </motion.article>
 
-                {/* Other Cases Grid */}
+                {/* Other Cases Grid - Collage Style */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {featuredCases.slice(1).map((caseItem) => (
                         <motion.article
@@ -235,30 +262,48 @@ export function FeaturedCases() {
                         >
                             <Link href={`/case-studies/${caseItem.id}`}>
                                 <div className="relative overflow-hidden rounded-2xl bg-[var(--bg-card)] border border-white/5 hover:border-[var(--accent-primary)]/30 transition-all h-full">
-                                    {/* Image with Zoom Effect */}
-                                    <div className="case-image-wrapper relative aspect-[4/3]">
-                                        {caseItem.image ? (
-                                            <Image
-                                                src={caseItem.image}
-                                                alt={caseItem.title}
-                                                fill
-                                                className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
-                                            />
-                                        ) : (
-                                            <div className={`case-image-bg absolute inset-0 bg-gradient-to-br ${caseItem.gradient}`}>
-                                                {/* Grid pattern */}
-                                                <div
-                                                    className="absolute inset-0 opacity-[0.1]"
-                                                    style={{
-                                                        backgroundImage: `linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)`,
-                                                        backgroundSize: '30px 30px',
-                                                    }}
+                                    {/* Collage Image System */}
+                                    <div className="collage relative aspect-[4/3]">
+                                        {/* Backdrop blur layer */}
+                                        {caseItem.image && (
+                                            <div className="collage__backdrop">
+                                                <Image
+                                                    src={caseItem.image}
+                                                    alt=""
+                                                    fill
+                                                    className="object-cover"
+                                                    aria-hidden="true"
                                                 />
                                             </div>
                                         )}
 
-                                        {/* Hover overlay - mais suave */}
-                                        <div className="case-image-overlay absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)]/80 via-[var(--bg-primary)]/20 to-transparent opacity-0 group-hover:opacity-100 flex items-end justify-between p-6 transition-opacity duration-500">
+                                        {/* Mask layer */}
+                                        <div className="collage__mask">
+                                            {caseItem.image ? (
+                                                <Image
+                                                    src={caseItem.image}
+                                                    alt={caseItem.title}
+                                                    fill
+                                                    className="collage__media object-cover"
+                                                />
+                                            ) : (
+                                                <div className={`absolute inset-0 bg-gradient-to-br ${caseItem.gradient}`}>
+                                                    <div
+                                                        className="absolute inset-0 opacity-[0.1]"
+                                                        style={{
+                                                            backgroundImage: `linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)`,
+                                                            backgroundSize: '30px 30px',
+                                                        }}
+                                                    />
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        {/* Blend-difference layer */}
+                                        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 blend-difference transition-opacity duration-700 z-[5]" />
+
+                                        {/* Hover overlay */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)]/80 via-[var(--bg-primary)]/20 to-transparent opacity-0 group-hover:opacity-100 flex items-end justify-between p-6 transition-opacity duration-500 z-10">
                                             <div className="p-3 bg-[var(--accent-primary)] rounded-full transform scale-0 group-hover:scale-100 transition-transform duration-300">
                                                 <ArrowUpRight size={20} className="text-white" />
                                             </div>
@@ -266,7 +311,7 @@ export function FeaturedCases() {
                                     </div>
 
                                     {/* Content */}
-                                    <div style={{ padding: '2rem' }}>
+                                    <div className="p-5 md:p-8">
                                         <h3 className="font-display text-xl font-bold mb-3 group-hover:text-[var(--accent-primary)] transition-colors">
                                             {caseItem.title}
                                         </h3>

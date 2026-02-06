@@ -35,14 +35,15 @@ export function Services() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Header reveal
+            // Header reveal with warp
             const headerLines = sectionRef.current?.querySelectorAll('.header-reveal');
             headerLines?.forEach((line, i) => {
                 gsap.fromTo(
                     line,
-                    { y: '100%' },
+                    { y: '100%', rotation: -3 },
                     {
                         y: '0%',
+                        rotation: 0,
                         duration: 1.2,
                         ease: 'power4.out',
                         scrollTrigger: {
@@ -54,19 +55,35 @@ export function Services() {
                 );
             });
 
-            // Service cards stagger
+            // Service cards stagger with clip-path reveal
             gsap.fromTo(
                 '.service-card',
-                { y: 60, opacity: 0 },
+                { clipPath: 'inset(100% 0 0 0)', opacity: 0 },
                 {
-                    y: 0,
+                    clipPath: 'inset(0% 0 0 0)',
                     opacity: 1,
-                    duration: 0.8,
-                    stagger: 0.1,
+                    duration: 1,
+                    stagger: 0.12,
                     ease: 'power4.out',
                     scrollTrigger: {
                         trigger: '.services-grid',
                         start: 'top 85%',
+                    },
+                }
+            );
+
+            // CTA fade up with delay
+            gsap.fromTo(
+                '.services-cta',
+                { y: 40, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: 'power4.out',
+                    scrollTrigger: {
+                        trigger: '.services-cta',
+                        start: 'top 90%',
                     },
                 }
             );
@@ -86,7 +103,7 @@ export function Services() {
         <section ref={sectionRef} id="services" className="section bg-[var(--bg-secondary)]">
             <div className="container">
                 {/* Header */}
-                <div className="max-w-2xl mb-20">
+                <div className="max-w-2xl mb-10 md:mb-20">
                     <div className="overflow-hidden mb-4">
                         <p className="header-reveal text-[var(--accent-primary)] text-sm uppercase tracking-[0.5em] font-medium">
                             {t('services.subtitle') as string}
@@ -104,12 +121,11 @@ export function Services() {
                 </div>
 
                 {/* Services Grid */}
-                <div className="services-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+                <div className="services-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-10 md:mb-20">
                     {services.map((service) => (
                         <motion.div
                             key={service.title as string}
-                            className="service-card group rounded-2xl bg-[var(--bg-card)] border border-white/5 hover:border-[var(--accent-primary)]/30 transition-all"
-                            style={{ padding: '3rem' }}
+                            className="service-card group rounded-2xl bg-[var(--bg-card)] border border-white/5 hover:border-[var(--accent-primary)]/30 transition-all p-6 md:p-12"
                             whileHover={{ y: -8 }}
                             transition={{ duration: 0.3 }}
                         >
@@ -136,7 +152,7 @@ export function Services() {
                 </div>
 
                 {/* CTA */}
-                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 p-8 rounded-2xl bg-[var(--bg-card)] border border-white/5">
+                <div className="services-cta flex flex-col md:flex-row items-start md:items-center justify-between gap-6 p-8 rounded-2xl bg-[var(--bg-card)] border border-white/5">
                     <div>
                         <h3 className="font-display text-xl font-bold mb-2">
                             {t('services.cta.title') as string}

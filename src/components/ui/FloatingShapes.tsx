@@ -26,12 +26,12 @@ interface Shape {
     color: string;
 }
 
-const shapes: Shape[] = [
-    { id: 1, type: 'bracket', x: 10, y: 20, size: 80, delay: 0, duration: 8, color: 'var(--accent-primary)' },
-    { id: 2, type: 'sphere', x: 85, y: 15, size: 120, delay: 1, duration: 10, color: 'var(--accent-secondary)' },
-    { id: 3, type: 'terminal', x: 75, y: 70, size: 60, delay: 0.5, duration: 9, color: 'var(--accent-tertiary)' },
-    { id: 4, type: 'code', x: 15, y: 75, size: 50, delay: 1.5, duration: 7, color: 'var(--accent-primary)' },
-    { id: 5, type: 'hexagon', x: 50, y: 10, size: 100, delay: 2, duration: 11, color: 'var(--accent-secondary)' },
+const shapes: (Shape & { glide?: string })[] = [
+    { id: 1, type: 'bracket', x: 10, y: 20, size: 80, delay: 0, duration: 8, color: 'var(--accent-primary)', glide: 'glide-left-slow' },
+    { id: 2, type: 'sphere', x: 85, y: 15, size: 120, delay: 1, duration: 10, color: 'var(--accent-secondary)', glide: 'glide-right' },
+    { id: 3, type: 'terminal', x: 75, y: 70, size: 60, delay: 0.5, duration: 9, color: 'var(--accent-tertiary)', glide: 'glide-left' },
+    { id: 4, type: 'code', x: 15, y: 75, size: 50, delay: 1.5, duration: 7, color: 'var(--accent-primary)', glide: 'glide-right-slow' },
+    { id: 5, type: 'hexagon', x: 50, y: 10, size: 100, delay: 2, duration: 11, color: 'var(--accent-secondary)', glide: 'glide-left' },
 ];
 
 // Componentes SVG para cada forma
@@ -172,7 +172,7 @@ export function FloatingShapes() {
                 return (
                     <motion.div
                         key={shape.id}
-                        className="floating-shape absolute"
+                        className={`floating-shape absolute ${'glide' in shape && shape.glide ? shape.glide : ''}`}
                         style={{
                             left: `${shape.x}%`,
                             top: `${shape.y}%`,
@@ -192,9 +192,9 @@ export function FloatingShapes() {
                 );
             })}
 
-            {/* Glow effects */}
+            {/* Glow effects - hidden on mobile for performance */}
             <div
-                className="absolute w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
+                className="absolute w-[300px] md:w-[500px] h-[300px] md:h-[500px] rounded-full opacity-20 blur-3xl hidden md:block"
                 style={{
                     background: 'radial-gradient(circle, var(--accent-primary) 0%, transparent 70%)',
                     left: '10%',
@@ -202,7 +202,7 @@ export function FloatingShapes() {
                 }}
             />
             <div
-                className="absolute w-[400px] h-[400px] rounded-full opacity-15 blur-3xl"
+                className="absolute w-[250px] md:w-[400px] h-[250px] md:h-[400px] rounded-full opacity-15 blur-3xl hidden md:block"
                 style={{
                     background: 'radial-gradient(circle, var(--accent-secondary) 0%, transparent 70%)',
                     right: '10%',

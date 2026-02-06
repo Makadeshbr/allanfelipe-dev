@@ -13,3 +13,6 @@ export { ParallaxSection } from './ParallaxSection';
 export { PageTransition } from './PageTransition';
 export { PageLoader } from './PageLoader';
 export { ContactModal } from './ContactModal';
+export { GlitchText } from './GlitchText';
+export { JourneyDots } from './JourneyDots';
+export { AudioVisualizer } from './AudioVisualizer';

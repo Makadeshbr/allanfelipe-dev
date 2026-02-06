@@ -41,8 +41,8 @@ export default function ProjectsPage() {
                 lines.forEach((line, i) => {
                     gsap.fromTo(
                         line,
-                        { y: '100%' },
-                        { y: '0%', duration: 1.2, ease: 'power4.out', delay: 0.2 + i * 0.1 }
+                        { y: '100%', rotation: -3 },
+                        { y: '0%', rotation: 0, duration: 1.2, ease: 'power4.out', delay: 0.2 + i * 0.1 }
                     );
                 });
             }
@@ -58,11 +58,11 @@ export default function ProjectsPage() {
         cards.forEach((card) => {
             gsap.fromTo(
                 card,
-                { y: 60, opacity: 0 },
+                { clipPath: 'inset(100% 0 0 0)', opacity: 0 },
                 {
-                    y: 0,
+                    clipPath: 'inset(0% 0 0 0)',
                     opacity: 1,
-                    duration: 0.8,
+                    duration: 1,
                     ease: 'power4.out',
                     scrollTrigger: {
                         trigger: card,
@@ -93,6 +93,7 @@ export default function ProjectsPage() {
                         className="font-display text-[clamp(2rem,5vw,4rem)] font-bold leading-[1.1] mb-8"
                         highlightLast={true}
                         delay={0.3}
+                        effect="warp"
                     />
 
                     {/* Description */}
@@ -105,18 +106,18 @@ export default function ProjectsPage() {
             {/* Stats Bar */}
             <section className="py-10 bg-[var(--bg-secondary)] border-y border-white/5">
                 <div className="container">
-                    <div className="flex flex-wrap justify-center gap-12">
+                    <div className="flex flex-wrap justify-center gap-6 md:gap-12">
                         <div className="text-center">
                             <div className="text-4xl font-bold text-gradient">100+</div>
-                            <div className="text-[var(--text-muted)] text-sm">Projetos</div>
+                            <div className="text-[var(--text-muted)] text-sm opaque">Projetos</div>
                         </div>
                         <div className="text-center">
                             <div className="text-4xl font-bold text-gradient">50+</div>
-                            <div className="text-[var(--text-muted)] text-sm">Clientes</div>
+                            <div className="text-[var(--text-muted)] text-sm opaque">Clientes</div>
                         </div>
                         <div className="text-center">
                             <div className="text-4xl font-bold text-gradient">5+</div>
-                            <div className="text-[var(--text-muted)] text-sm">Anos</div>
+                            <div className="text-[var(--text-muted)] text-sm opaque">Anos</div>
                         </div>
                     </div>
                 </div>
@@ -200,8 +201,11 @@ export default function ProjectsPage() {
                                                 </span>
                                             </div>
 
+                                            {/* Blend-difference layer */}
+                                            <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 blend-difference transition-opacity duration-700 z-[1]" />
+
                                             {/* Hover overlay with links */}
-                                            <div className="absolute inset-0 bg-[var(--bg-primary)]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                                            <div className="absolute inset-0 bg-[var(--bg-primary)]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-[2]">
                                                 <motion.a
                                                     href="#"
                                                     className="p-4 bg-[var(--accent-primary)] rounded-full text-[var(--bg-primary)]"
@@ -220,7 +224,7 @@ export default function ProjectsPage() {
                                         </div>
 
                                         {/* Content */}
-                                        <div style={{ padding: '2rem' }}>
+                                        <div className="p-5 md:p-8">
                                             {/* Tags */}
                                             <div className="flex flex-wrap gap-2 mb-4">
                                                 {project.tags.map((tag) => (

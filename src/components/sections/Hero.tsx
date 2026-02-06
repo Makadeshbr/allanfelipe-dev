@@ -1,12 +1,3 @@
-/**
- * ============================================
- * COMPONENT: Hero - Professional Edition
- * ============================================
- * 
- * Hero section com paleta azul profissional
- * Layout exato do 1minus1.com
- */
-
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -14,8 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ChevronDown, Play } from 'lucide-react';
-import { ShowreelModal } from '@/components/ui';
-import Link from 'next/link';
+import { ShowreelModal, AudioVisualizer, GlitchText } from '@/components/ui';
 import { useLanguage } from '@/context/LanguageContext';
 
 if (typeof window !== 'undefined') {
@@ -48,36 +38,40 @@ export function Hero() {
         const ctx = gsap.context(() => {
             const tl = gsap.timeline({ delay: 0.3 });
 
+            // Tagline with warp effect
             if (taglineRef.current) {
                 tl.fromTo(
                     taglineRef.current.querySelector('.tagline-text'),
-                    { y: '100%', opacity: 0 },
-                    { y: '0%', opacity: 1, duration: 1, ease: 'power4.out' },
+                    { y: '100%', opacity: 0, rotation: -3 },
+                    { y: '0%', opacity: 1, rotation: 0, duration: 1, ease: 'power4.out' },
                     0
                 );
             }
 
+            // Headlines with warp effect
             if (headlineRef.current) {
                 const lines = headlineRef.current.querySelectorAll('.headline-line');
                 lines.forEach((line, i) => {
                     tl.fromTo(
                         line,
-                        { y: '100%' },
-                        { y: '0%', duration: 1.2, ease: 'power4.out' },
+                        { y: '100%', rotation: -3 },
+                        { y: '0%', rotation: 0, duration: 1.2, ease: 'power4.out' },
                         0.1 + i * 0.15
                     );
                 });
             }
 
+            // Rotating section
             if (rotatingRef.current) {
                 tl.fromTo(
                     rotatingRef.current,
-                    { y: 50, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 1, ease: 'power4.out' },
+                    { y: 50, opacity: 0, rotation: -2 },
+                    { y: 0, opacity: 1, rotation: 0, duration: 1, ease: 'power4.out' },
                     0.8
                 );
             }
 
+            // CTA section
             if (ctaRef.current) {
                 tl.fromTo(
                     ctaRef.current,
@@ -138,9 +132,9 @@ export function Hero() {
                 {/* Background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[var(--bg-primary)] via-[#0d0d14] to-[var(--bg-primary)]" />
 
-                {/* Grid pattern */}
+                {/* Grid pattern with glide */}
                 <div
-                    className="hero-bg-pattern absolute inset-0 opacity-[0.03]"
+                    className="hero-bg-pattern absolute inset-0 opacity-[0.03] glide-right-slow"
                     style={{
                         backgroundImage: `
                             linear-gradient(rgba(79,140,255,0.4) 1px, transparent 1px),
@@ -158,11 +152,13 @@ export function Hero() {
                     {/* Tagline */}
                     <div ref={taglineRef} className="overflow-hidden mb-8">
                         <p className="tagline-text text-[var(--accent-primary)] text-xs uppercase tracking-[0.6em] font-medium">
-                            {t('hero.tagline') as string}
+                            <GlitchText trigger="hover" intensity="low">
+                                {t('hero.tagline') as string}
+                            </GlitchText>
                         </p>
                     </div>
 
-                    {/* Headline - Tipografia impactante estilo 1minus1 */}
+                    {/* Headline with warp */}
                     <div ref={headlineRef} className="mb-10">
                         <h1 className="font-display text-[clamp(3rem,10vw,8rem)] font-bold leading-[0.95] tracking-tight">
                             <div className="overflow-hidden pb-1">
@@ -183,12 +179,11 @@ export function Hero() {
                         </h1>
                     </div>
 
-                    {/* Showreel button */}
-                    <div ref={rotatingRef} className="mb-10" style={{ marginTop: '2rem' }}>
+                    {/* Showreel button + Audio Visualizer */}
+                    <div ref={rotatingRef} className="mb-8 md:mb-10 flex flex-wrap items-center gap-4 md:gap-8 mt-6 md:mt-8">
                         <button
                             onClick={() => setShowreelOpen(true)}
-                            className="flex items-center text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors group"
-                            style={{ gap: '1rem' }}
+                            className="flex items-center gap-3 md:gap-4 text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors group"
                         >
                             <div className="relative w-14 h-14 rounded-full border-2 border-current flex items-center justify-center group-hover:border-[var(--accent-primary)] transition-colors">
                                 <motion.div
@@ -202,12 +197,19 @@ export function Hero() {
                                 {t('hero.showreel') as string}
                             </span>
                         </button>
+
+                        {/* Audio Visualizer - decorative */}
+                        <AudioVisualizer
+                            barCount={5}
+                            size="md"
+                            className="opacity-40 hidden md:flex"
+                        />
                     </div>
 
                     {/* Rotating Words */}
-                    <div ref={ctaRef} className="flex flex-wrap items-center gap-3 text-xl md:text-2xl text-[var(--text-secondary)]">
+                    <div ref={ctaRef} className="flex flex-wrap items-center gap-2 md:gap-3 text-lg md:text-2xl text-[var(--text-secondary)]">
                         <span>{t('hero.specializedIn') as string}</span>
-                        <div className="relative h-12 w-72 overflow-hidden flex items-center" style={{ perspective: '500px' }}>
+                        <div className="relative h-10 md:h-12 w-56 md:w-72 overflow-hidden flex items-center" style={{ perspective: '500px' }}>
                             <AnimatePresence mode="wait">
                                 <motion.span
                                     key={currentWordIndex}
@@ -234,7 +236,7 @@ export function Hero() {
                     className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-[var(--text-muted)] hover:text-[var(--accent-primary)] transition-colors group cursor-pointer"
                     aria-label="Scroll para baixo"
                 >
-                    <span className="text-[10px] uppercase tracking-[0.3em] opacity-60 group-hover:opacity-100 transition-opacity">
+                    <span className="text-[10px] uppercase tracking-[0.3em] opaque group-hover:visible transition-opacity">
                         {t('hero.scroll') as string}
                     </span>
                     <motion.div

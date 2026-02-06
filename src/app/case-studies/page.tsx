@@ -42,8 +42,8 @@ export default function CaseStudiesPage() {
                 lines.forEach((line, i) => {
                     gsap.fromTo(
                         line,
-                        { y: '100%' },
-                        { y: '0%', duration: 1.2, ease: 'power4.out', delay: 0.2 + i * 0.1 }
+                        { y: '100%', rotation: -3 },
+                        { y: '0%', rotation: 0, duration: 1.2, ease: 'power4.out', delay: 0.2 + i * 0.1 }
                     );
                 });
             }
@@ -53,11 +53,11 @@ export default function CaseStudiesPage() {
                 items.forEach((item) => {
                     gsap.fromTo(
                         item,
-                        { y: 80, opacity: 0 },
+                        { clipPath: 'inset(100% 0 0 0)', opacity: 0 },
                         {
-                            y: 0,
+                            clipPath: 'inset(0% 0 0 0)',
                             opacity: 1,
-                            duration: 0.8,
+                            duration: 1,
                             ease: 'power4.out',
                             scrollTrigger: {
                                 trigger: item,
@@ -92,6 +92,7 @@ export default function CaseStudiesPage() {
                         className="font-display text-[clamp(2rem,5vw,4rem)] font-bold leading-[1.1] mb-8"
                         highlightLast={true}
                         delay={0.3}
+                        effect="warp"
                     />
 
                     {/* Description */}
@@ -194,9 +195,9 @@ export default function CaseStudiesPage() {
                                 className="block relative overflow-hidden"
                             >
                                 {/* Fullwidth Container */}
-                                <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[70vh] bg-[var(--bg-card)] border-b border-white/5">
+                                <div className="grid grid-cols-1 lg:grid-cols-12 lg:min-h-[70vh] bg-[var(--bg-card)] border-b border-white/5">
                                     {/* Image Side (60%) */}
-                                    <div className={`lg:col-span-7 relative overflow-hidden ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
+                                    <div className={`lg:col-span-7 relative overflow-hidden aspect-[16/10] lg:aspect-auto ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
                                         {study.image ? (
                                             <Image
                                                 src={study.image}
@@ -215,19 +216,22 @@ export default function CaseStudiesPage() {
                                                 />
                                             </div>
                                         )}
+                                        {/* Blend-difference layer */}
+                                        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 blend-difference transition-opacity duration-700 z-[1]" />
+
                                         {/* Overlay gradient */}
                                         <div className={`absolute inset-0 bg-gradient-to-${i % 2 === 1 ? 'l' : 'r'} from-[var(--bg-card)] via-[var(--bg-card)]/50 to-transparent`} />
 
                                         {/* Number overlay */}
                                         <div className="absolute bottom-8 left-8">
-                                            <span className="text-[8rem] font-bold text-white/5 leading-none">
+                                            <span className="text-[8rem] font-bold text-white leading-none faded">
                                                 {String(i + 1).padStart(2, '0')}
                                             </span>
                                         </div>
                                     </div>
 
                                     {/* Content Side (40%) */}
-                                    <div className={`lg:col-span-5 flex flex-col justify-center ${i % 2 === 1 ? 'lg:order-1' : ''}`} style={{ padding: '3.5rem' }}>
+                                    <div className={`lg:col-span-5 flex flex-col justify-center p-6 md:p-10 lg:p-14 ${i % 2 === 1 ? 'lg:order-1' : ''}`}>
                                         {/* Client/Category Tag */}
                                         <div className="mb-6">
                                             <span className="text-[var(--accent-primary)] text-sm uppercase tracking-[0.3em] font-medium">

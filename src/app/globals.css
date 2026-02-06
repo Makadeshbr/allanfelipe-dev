@@ -299,6 +299,276 @@ body {
 }
 
 /* ============================================
+   GLIDE ANIMATIONS - Oscilacao Horizontal (1minus1 style)
+   ============================================ */
+@keyframes glideLeft {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-20px); }
+}
+
+@keyframes glideRight {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(20px); }
+}
+
+@keyframes glideLeftSlow {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-10px); }
+}
+
+@keyframes glideRightSlow {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(10px); }
+}
+
+.glide-left { animation: glideLeft 6s ease-in-out infinite; }
+.glide-right { animation: glideRight 6s ease-in-out infinite; }
+.glide-left-slow { animation: glideLeftSlow 8s ease-in-out infinite; }
+.glide-right-slow { animation: glideRightSlow 8s ease-in-out infinite; }
+
+/* ============================================
+   GLITCH EFFECT - Clip-path based (1minus1 style)
+   ============================================ */
+@keyframes glitch {
+  0% {
+    clip-path: inset(0 0 100% 0);
+    transform: skewX(0deg) scaleY(1);
+  }
+  10% {
+    clip-path: inset(40% 0 30% 0);
+    transform: skewX(-5deg) scaleY(1.02);
+  }
+  20% {
+    clip-path: inset(80% 0 5% 0);
+    transform: skewX(3deg) scaleY(0.98);
+  }
+  30% {
+    clip-path: inset(10% 0 70% 0);
+    transform: skewX(-2deg) scaleY(1.01);
+  }
+  40% {
+    clip-path: inset(60% 0 20% 0);
+    transform: skewX(4deg) scaleY(0.99);
+  }
+  50% {
+    clip-path: inset(0 0 50% 0);
+    transform: skewX(-1deg) scaleY(1);
+  }
+  60% {
+    clip-path: inset(30% 0 40% 0);
+    transform: skewX(2deg) scaleY(1.02);
+  }
+  70% {
+    clip-path: inset(70% 0 10% 0);
+    transform: skewX(-3deg) scaleY(0.98);
+  }
+  80% {
+    clip-path: inset(5% 0 80% 0);
+    transform: skewX(1deg) scaleY(1.01);
+  }
+  90% {
+    clip-path: inset(50% 0 30% 0);
+    transform: skewX(-2deg) scaleY(0.99);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    transform: skewX(0deg) scaleY(1);
+  }
+}
+
+@keyframes glitch-overlay {
+  0% { opacity: 0; }
+  10% { opacity: 0.8; }
+  11% { opacity: 0; }
+  30% { opacity: 0; }
+  31% { opacity: 0.6; }
+  32% { opacity: 0; }
+  50% { opacity: 0; }
+  51% { opacity: 0.4; }
+  52% { opacity: 0; }
+  70% { opacity: 0; }
+  71% { opacity: 0.7; }
+  72% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* ============================================
+   OPACITY SYSTEM - Cinematic states (1minus1 style)
+   ============================================ */
+.veiled { opacity: 0; }
+.faded { opacity: 0.15; }
+.transparent { opacity: 0.3; }
+.opaque { opacity: 0.6; }
+.visible { opacity: 1; }
+
+/* ============================================
+   BLEND DIFFERENCE - Dramatic hover (1minus1 style)
+   ============================================ */
+.blend-difference {
+  mix-blend-mode: difference;
+}
+
+/* ============================================
+   PAGE SWIPE TRANSITION (1minus1 style)
+   ============================================ */
+@keyframes pageSwipeEnter {
+  0% { transform: scaleY(1); transform-origin: top; }
+  100% { transform: scaleY(0); transform-origin: top; }
+}
+
+@keyframes pageSwipeLeave {
+  0% { transform: scaleY(0); transform-origin: bottom; }
+  100% { transform: scaleY(1); transform-origin: bottom; }
+}
+
+/* ============================================
+   AUDIO VISUALIZER BARS (1minus1 style)
+   ============================================ */
+@keyframes audioBar1 {
+  0%, 100% { height: 20%; }
+  25% { height: 80%; }
+  50% { height: 40%; }
+  75% { height: 90%; }
+}
+
+@keyframes audioBar2 {
+  0%, 100% { height: 50%; }
+  20% { height: 30%; }
+  40% { height: 90%; }
+  60% { height: 20%; }
+  80% { height: 70%; }
+}
+
+@keyframes audioBar3 {
+  0%, 100% { height: 30%; }
+  15% { height: 70%; }
+  35% { height: 50%; }
+  55% { height: 85%; }
+  75% { height: 25%; }
+}
+
+@keyframes audioBar4 {
+  0%, 100% { height: 60%; }
+  30% { height: 20%; }
+  50% { height: 75%; }
+  70% { height: 35%; }
+  90% { height: 80%; }
+}
+
+/* ============================================
+   COLLAGE IMAGE SYSTEM (1minus1 style)
+   ============================================ */
+.collage {
+  position: relative;
+  overflow: hidden;
+}
+
+.collage__backdrop {
+  position: absolute;
+  inset: -10%;
+  width: 120%;
+  height: 120%;
+  filter: blur(20px) brightness(0.5);
+  transform: scale(1.1);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s ease;
+}
+
+.group:hover .collage__backdrop {
+  transform: scale(1.15);
+  filter: blur(25px) brightness(0.4);
+}
+
+.collage__mask {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0);
+  transition: clip-path 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.collage__media {
+  width: 120%;
+  height: 120%;
+  margin-left: -10%;
+  margin-top: -10%;
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.group:hover .collage__media {
+  transform: scale(1.05);
+}
+
+/* ============================================
+   WILL-CHANGE PERFORMANCE HINTS
+   ============================================ */
+.change-transform {
+  will-change: transform;
+}
+
+.change-transform-fade {
+  will-change: transform, opacity;
+}
+
+/* ============================================
+   WARP TEXT ENTRY
+   ============================================ */
+@keyframes fadeInUpWarp {
+  from {
+    opacity: 0;
+    transform: translateY(50px) rotate(-3deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+/* ============================================
+   JOURNEY DOT TRANSITION SCALE
+   ============================================ */
+@keyframes journeyDotExpand {
+  0% { transform: scale(1); }
+  100% { transform: scale(15); }
+}
+
+/* ============================================
+   GRAIN/NOISE TEXTURE OVERLAY (1minus1 style)
+   ============================================ */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+}
+
+.grain-overlay::before {
+  content: '';
+  position: absolute;
+  inset: -200%;
+  width: 400%;
+  height: 400%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  animation: grain-shift 8s steps(10) infinite;
+}
+
+@keyframes grain-shift {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+}
+
+/* ============================================
    SCROLLBAR CUSTOMIZATION
    ============================================ */
 ::-webkit-scrollbar {
@@ -360,5 +630,67 @@ body {
 
   :root {
     --section-padding: clamp(3rem, 10vh, 6rem);
+  }
+
+  /* Reduce hero headline on mobile */
+  .text-hero {
+    font-size: clamp(2.5rem, 10vw, 4rem);
+  }
+
+  /* Reduce section header margins */
+  .services-grid,
+  .stats-grid {
+    gap: 1rem;
+  }
+
+  /* Disable grain overlay animation on mobile for performance */
+  .grain-overlay::before {
+    animation: none;
+  }
+
+  .grain-overlay {
+    opacity: 0.02;
+  }
+
+  /* Disable glide animations on mobile for performance */
+  .glide-left,
+  .glide-right,
+  .glide-left-slow,
+  .glide-right-slow {
+    animation: none;
+  }
+
+  /* Disable blend-difference on mobile (hover-only feature) */
+  .blend-difference {
+    mix-blend-mode: normal;
+  }
+
+  /* Reduce collage effects on mobile */
+  .collage__backdrop {
+    filter: blur(10px) brightness(0.5);
+  }
+
+  .collage__media {
+    width: 110%;
+    height: 110%;
+    margin-left: -5%;
+    margin-top: -5%;
+  }
+
+  /* Button adjustments */
+  .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Small mobile (< 480px) */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .text-hero {
+    font-size: clamp(2rem, 9vw, 3rem);
   }
 }

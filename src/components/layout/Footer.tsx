@@ -15,6 +15,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 import { contactInfo, navLinks } from '@/data/site-data';
 import { useLanguage } from '@/context/LanguageContext';
+import { AudioVisualizer } from '@/components/ui';
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
@@ -28,12 +29,13 @@ export function Footer() {
         const ctx = gsap.context(() => {
             gsap.fromTo(
                 '.footer-reveal',
-                { y: 30, opacity: 0 },
+                { y: 30, opacity: 0, rotation: -2 },
                 {
                     y: 0,
                     opacity: 1,
-                    duration: 0.8,
-                    stagger: 0.1,
+                    rotation: 0,
+                    duration: 1,
+                    stagger: 0.15,
                     ease: 'power4.out',
                     scrollTrigger: {
                         trigger: sectionRef.current,
@@ -52,7 +54,7 @@ export function Footer() {
         <footer ref={sectionRef} className="bg-[var(--bg-secondary)] py-8 border-t border-white/5">
             <div className="container">
                 {/* CTA Section - Estilo 1minus1 */}
-                <div className="footer-reveal text-center mb-16">
+                <div className="footer-reveal text-center mb-8 md:mb-16">
                     <h2 className="font-display text-[clamp(1.5rem,4vw,2.5rem)] font-bold mb-4">
                         {t('footer.cta.line1') as string || 'Different where it matters.'}{' '}
                         <span className="text-gradient">
@@ -137,10 +139,13 @@ export function Footer() {
 
                 {/* Copyright - Single line */}
                 <div className="footer-reveal flex flex-col md:flex-row items-center justify-between gap-4 pt-4">
-                    <Link href="/" className="font-display text-lg font-bold">
-                        <span className="text-gradient">Allan Felipe</span>
-                        <span className="text-[var(--text-muted)]">.dev</span>
-                    </Link>
+                    <div className="flex items-center gap-3">
+                        <Link href="/" className="font-display text-lg font-bold">
+                            <span className="text-gradient">Allan Felipe</span>
+                            <span className="text-[var(--text-muted)]">.dev</span>
+                        </Link>
+                        <AudioVisualizer barCount={4} size="sm" className="opacity-30" />
+                    </div>
 
                     <p className="text-[var(--text-muted)] text-xs">
                         © {currentYear} Allan Felipe. {t('footer.rights') as string || 'All rights reserved.'}

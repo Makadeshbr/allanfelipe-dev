@@ -39,6 +39,7 @@ export function AppShell({ children }: AppShellProps) {
                 <Footer />
             </SmoothScrollProvider>
             <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
+            <div className="grain-overlay" aria-hidden="true" />
         </>
     );
 }

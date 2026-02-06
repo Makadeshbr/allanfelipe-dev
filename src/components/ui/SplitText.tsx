@@ -2,16 +2,11 @@
 
 import { useRef, useEffect, ReactNode } from 'react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-/**
- * SplitText - Componente que anima texto palavra por palavra
- * Inspirado no 1minus1.com com animação stagger suave
- * 
- * Usage:
- * <SplitText>
- *   Seu texto aqui será animado
- * </SplitText>
- */
+if (typeof window !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 interface SplitTextProps {
     children: ReactNode;
@@ -21,6 +16,8 @@ interface SplitTextProps {
     duration?: number;
     as?: 'h1' | 'h2' | 'h3' | 'p' | 'span' | 'div';
     splitBy?: 'word' | 'char' | 'line';
+    effect?: 'default' | 'warp';
+    scrollTrigger?: boolean;
 }
 
 export function SplitText({
@@ -31,6 +28,8 @@ export function SplitText({
     duration = 1,
     as: Component = 'div',
     splitBy = 'word',
+    effect = 'default',
+    scrollTrigger = false,
 }: SplitTextProps) {
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -40,7 +39,6 @@ export function SplitText({
         const text = containerRef.current.textContent || '';
         let elements: string[] = [];
 
-        // Split based on type
         if (splitBy === 'word') {
             elements = text.split(' ');
         } else if (splitBy === 'char') {
@@ -49,32 +47,44 @@ export function SplitText({
             elements = text.split('\n');
         }
 
-        // Create wrapped elements
         const wrappedHTML = elements
             .map(
-                (el, i) =>
-                    `<span class="split-wrapper inline-block overflow-hidden"><span class="split-item inline-block" style="opacity: 0; transform: translateY(100%)">${el}${splitBy === 'word' ? '&nbsp;' : ''}</span></span>`
+                (el) =>
+                    `<span class="split-wrapper inline-block overflow-hidden"><span class="split-item inline-block" style="opacity: 0; transform: translateY(100%)${effect === 'warp' ? ' rotate(-3deg)' : ''}">${el}${splitBy === 'word' ? '&nbsp;' : ''}</span></span>`
             )
             .join('');
 
         containerRef.current.innerHTML = wrappedHTML;
 
-        // Animate
         const items = containerRef.current.querySelectorAll('.split-item');
-        gsap.to(items, {
+
+        const fromVars = effect === 'warp'
+            ? { y: '100%', opacity: 0, rotation: -3 }
+            : { y: '100%', opacity: 0 };
+
+        const toVars: gsap.TweenVars = {
             y: '0%',
             opacity: 1,
-            duration: duration,
+            rotation: 0,
+            duration: effect === 'warp' ? 1.2 : duration,
             stagger: stagger,
             delay: delay,
-            ease: 'expo.out',
-        });
+            ease: effect === 'warp' ? 'power4.out' : 'expo.out',
+        };
 
-        // Cleanup
+        if (scrollTrigger) {
+            toVars.scrollTrigger = {
+                trigger: containerRef.current,
+                start: 'top 85%',
+            };
+        }
+
+        gsap.fromTo(items, fromVars, toVars);
+
         return () => {
             gsap.killTweensOf(items);
         };
-    }, [children, delay, stagger, duration, splitBy]);
+    }, [children, delay, stagger, duration, splitBy, effect, scrollTrigger]);
 
     return (
         <Component ref={containerRef as React.RefObject<HTMLDivElement>} className={className}>
@@ -84,14 +94,14 @@ export function SplitText({
 }
 
 /**
- * AnimatedHeadline - Versão especializada para headlines grandes
- * Com animação de máscara e reveal dramático
+ * AnimatedHeadline - Headlines with line-by-line reveal
  */
 interface AnimatedHeadlineProps {
     lines: string[];
     className?: string;
     delay?: number;
     highlightLast?: boolean;
+    effect?: 'default' | 'warp';
 }
 
 export function AnimatedHeadline({
@@ -99,6 +109,7 @@ export function AnimatedHeadline({
     className = '',
     delay = 0.2,
     highlightLast = true,
+    effect = 'default',
 }: AnimatedHeadlineProps) {
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -107,16 +118,21 @@ export function AnimatedHeadline({
 
         const lineElements = containerRef.current.querySelectorAll('.headline-line');
 
+        const fromVars = effect === 'warp'
+            ? { y: '110%', opacity: 0, rotation: -3 }
+            : { y: '110%', opacity: 0 };
+
         lineElements.forEach((line, i) => {
             gsap.fromTo(
                 line,
-                { y: '110%', opacity: 0 },
+                fromVars,
                 {
                     y: '0%',
                     opacity: 1,
+                    rotation: 0,
                     duration: 1.2,
                     delay: delay + i * 0.15,
-                    ease: 'expo.out',
+                    ease: 'power4.out',
                 }
             );
         });
@@ -124,7 +140,7 @@ export function AnimatedHeadline({
         return () => {
             gsap.killTweensOf(lineElements);
         };
-    }, [lines, delay]);
+    }, [lines, delay, effect]);
 
     return (
         <h1 ref={containerRef} className={className}>
@@ -133,7 +149,7 @@ export function AnimatedHeadline({
                     <span
                         className={`headline-line block ${highlightLast && i === lines.length - 1 ? 'text-gradient' : ''
                             }`}
-                        style={{ opacity: 0, transform: 'translateY(110%)' }}
+                        style={{ opacity: 0, transform: `translateY(110%)${effect === 'warp' ? ' rotate(-3deg)' : ''}` }}
                     >
                         {line}
                     </span>
@@ -144,32 +160,38 @@ export function AnimatedHeadline({
 }
 
 /**
- * RevealText - Texto que aparece com efeito de máscara
+ * RevealText - Text reveal with mask effect
  */
 interface RevealTextProps {
     children: ReactNode;
     className?: string;
     delay?: number;
+    effect?: 'default' | 'warp';
 }
 
-export function RevealText({ children, className = '', delay = 0 }: RevealTextProps) {
+export function RevealText({ children, className = '', delay = 0, effect = 'default' }: RevealTextProps) {
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (!ref.current) return;
 
+        const fromVars = effect === 'warp'
+            ? { y: 50, opacity: 0, rotation: -3 }
+            : { y: 50, opacity: 0 };
+
         gsap.fromTo(
             ref.current,
-            { y: 50, opacity: 0 },
+            fromVars,
             {
                 y: 0,
                 opacity: 1,
+                rotation: 0,
                 duration: 1,
                 delay: delay,
                 ease: 'power4.out',
             }
         );
-    }, [delay]);
+    }, [delay, effect]);
 
     return (
         <div ref={ref} className={className} style={{ opacity: 0 }}>

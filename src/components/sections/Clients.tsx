@@ -32,20 +32,41 @@ export function Clients() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Reveal animation
+            // Header reveal with warp
+            const headerEls = sectionRef.current?.querySelectorAll('.clients-header');
+            if (headerEls) {
+                gsap.fromTo(
+                    headerEls,
+                    { y: 40, opacity: 0, rotation: -2 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        rotation: 0,
+                        duration: 1,
+                        ease: 'power4.out',
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            start: 'top 85%',
+                        },
+                    }
+                );
+            }
+
+            // Client items with staggered clip-path
             gsap.fromTo(
                 '.client-item',
-                { y: 30, opacity: 0 },
+                { scale: 0.8, opacity: 0 },
                 {
-                    y: 0,
+                    scale: 1,
                     opacity: 1,
                     duration: 0.6,
                     stagger: 0.08,
-                    ease: 'power4.out',
+                    ease: 'back.out(1.7)',
                     scrollTrigger: {
                         trigger: sectionRef.current,
                         start: 'top 85%',
                     },
+                    delay: 0.3,
                 }
             );
         }, sectionRef);
@@ -57,7 +78,7 @@ export function Clients() {
         <section ref={sectionRef} className="py-20 bg-[var(--bg-secondary)] border-y border-white/5">
             <div className="container">
                 {/* Header minimalista */}
-                <div className="text-center mb-12">
+                <div className="clients-header text-center mb-12">
                     <p className="text-[var(--accent-primary)] text-sm uppercase tracking-[0.3em] mb-4">
                         Experiência em
                     </p>

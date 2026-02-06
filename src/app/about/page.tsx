@@ -15,6 +15,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Code2, Cpu, Palette, Rocket, Users, Award } from 'lucide-react';
 import { techStack } from '@/data/site-data';
+import { GlitchText } from '@/components/ui';
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
@@ -69,15 +70,16 @@ export default function AboutPage() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Hero text reveals
+            // Hero text reveals with warp
             if (heroRef.current) {
                 const lines = heroRef.current.querySelectorAll('.reveal-line');
                 lines.forEach((line, i) => {
                     gsap.fromTo(
                         line,
-                        { y: '100%' },
+                        { y: '100%', rotation: -3 },
                         {
                             y: '0%',
+                            rotation: 0,
                             duration: 1.2,
                             ease: 'power4.out',
                             delay: 0.2 + i * 0.1,
@@ -86,17 +88,17 @@ export default function AboutPage() {
                 });
             }
 
-            // Capabilities stagger
+            // Capabilities stagger with clip-path
             if (capabilitiesRef.current) {
                 const cards = capabilitiesRef.current.querySelectorAll('.capability-card');
                 gsap.fromTo(
                     cards,
-                    { y: 80, opacity: 0 },
+                    { clipPath: 'inset(100% 0 0 0)', opacity: 0 },
                     {
-                        y: 0,
+                        clipPath: 'inset(0% 0 0 0)',
                         opacity: 1,
-                        duration: 0.8,
-                        stagger: 0.1,
+                        duration: 1,
+                        stagger: 0.12,
                         ease: 'power4.out',
                         scrollTrigger: {
                             trigger: capabilitiesRef.current,
@@ -146,7 +148,9 @@ export default function AboutPage() {
                             <span className="reveal-line block">Não apenas faça.</span>
                         </div>
                         <div className="overflow-hidden">
-                            <span className="reveal-line block text-gradient">Alcance.</span>
+                            <span className="reveal-line block text-gradient">
+                                <GlitchText trigger="hover" intensity="medium">Alcance.</GlitchText>
+                            </span>
                         </div>
                     </h1>
 
@@ -195,8 +199,7 @@ export default function AboutPage() {
                         {capabilities.map((cap, i) => (
                             <motion.div
                                 key={i}
-                                className="capability-card bg-[var(--bg-card)] rounded-2xl border border-white/5 group"
-                                style={{ padding: '2.5rem' }}
+                                className="capability-card bg-[var(--bg-card)] rounded-2xl border border-white/5 group p-6 md:p-10"
                                 whileHover={{ y: -8, borderColor: 'rgba(79, 140, 255, 0.3)' }}
                                 transition={{ duration: 0.3 }}
                             >
@@ -230,8 +233,7 @@ export default function AboutPage() {
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: i * 0.03, ease: [0.34, 1.56, 0.64, 1] }}
                                 whileHover={{ scale: 1.1, backgroundColor: 'rgba(79, 140, 255, 0.2)' }}
-                                className="bg-[var(--bg-card)] rounded-full text-[var(--text-secondary)] text-sm cursor-default transition-colors"
-                                style={{ padding: '0.75rem 1.5rem' }}
+                                className="bg-[var(--bg-card)] rounded-full text-[var(--text-secondary)] text-sm cursor-default transition-colors px-4 py-2 md:px-6 md:py-3"
                             >
                                 {tech}
                             </motion.span>
@@ -254,8 +256,7 @@ export default function AboutPage() {
                         {clients.map((client) => (
                             <span
                                 key={client}
-                                className="client-item bg-[var(--bg-card)] rounded-xl text-[var(--text-primary)] font-medium"
-                                style={{ padding: '1rem 2rem' }}
+                                className="client-item bg-[var(--bg-card)] rounded-xl text-[var(--text-primary)] font-medium px-5 py-3 md:px-8 md:py-4"
                             >
                                 {client}
                             </span>

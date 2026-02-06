@@ -82,14 +82,15 @@ export function Stats() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Header reveal
+            // Header reveal with warp
             gsap.fromTo(
                 '.stats-header',
-                { y: 50, opacity: 0 },
+                { y: 50, opacity: 0, rotation: -2 },
                 {
                     y: 0,
                     opacity: 1,
-                    duration: 1,
+                    rotation: 0,
+                    duration: 1.2,
                     ease: 'power4.out',
                     scrollTrigger: {
                         trigger: sectionRef.current,
@@ -98,14 +99,14 @@ export function Stats() {
                 }
             );
 
-            // Stats cards stagger
+            // Stats cards stagger with clip-path
             gsap.fromTo(
                 '.stat-card',
-                { y: 60, opacity: 0 },
+                { clipPath: 'inset(100% 0 0 0)', opacity: 0 },
                 {
-                    y: 0,
+                    clipPath: 'inset(0% 0 0 0)',
                     opacity: 1,
-                    duration: 0.8,
+                    duration: 1,
                     stagger: 0.15,
                     ease: 'power4.out',
                     scrollTrigger: {
@@ -153,8 +154,7 @@ export function Stats() {
                     {stats.map((stat) => (
                         <motion.div
                             key={stat.label as string}
-                            className="stat-card group relative rounded-2xl bg-[var(--bg-card)] border border-white/5 hover:border-[var(--accent-primary)]/30 transition-all"
-                            style={{ padding: '3rem' }}
+                            className="stat-card group relative rounded-2xl bg-[var(--bg-card)] border border-white/5 hover:border-[var(--accent-primary)]/30 transition-all p-6 md:p-12"
                             whileHover={{ y: -8, scale: 1.02 }}
                             transition={{ duration: 0.3 }}
                         >

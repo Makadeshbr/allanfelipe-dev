@@ -1,9 +1,3 @@
-/**
- * ============================================
- * COMPONENT: Header - Estilo 1minus1.com
- * ============================================
- */
-
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -20,9 +14,9 @@ interface HeaderProps {
 export function Header({ onContactClick }: HeaderProps) {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const menuRef = useRef<HTMLDivElement>(null);
 
-    // Usando o contexto de linguagem
     const { language, toggleLanguage, t } = useLanguage();
 
     useEffect(() => {
@@ -75,12 +69,10 @@ export function Header({ onContactClick }: HeaderProps) {
         setIsMenuOpen(false);
     };
 
-    // Função para traduzir labels dos links
     const getTranslatedLabel = (key: string) => {
         return t(`nav.${key}`) as string || key;
     };
 
-    // Mapeamento de links para chaves de tradução
     const linkKeys: Record<string, string> = {
         '/about': 'about',
         '/services': 'services',
@@ -88,6 +80,19 @@ export function Header({ onContactClick }: HeaderProps) {
         '/case-studies': 'caseStudies',
         '/contact': 'contact'
     };
+
+    const allMenuItems = [
+        ...navLinks.map((link) => ({
+            type: 'link' as const,
+            href: link.href,
+            label: linkKeys[link.href] ? getTranslatedLabel(linkKeys[link.href]) : link.label,
+        })),
+        {
+            type: 'button' as const,
+            href: '#contact',
+            label: t('nav.contact') as string || 'Contact',
+        },
+    ];
 
     return (
         <>
@@ -118,8 +123,8 @@ export function Header({ onContactClick }: HeaderProps) {
                     </Link>
 
                     {/* Actions: Contact + Language + Menu */}
-                    <div className="flex items-center gap-8">
-                        {/* Contact Button - Estilo 1minus1 */}
+                    <div className="flex items-center gap-4 md:gap-8">
+                        {/* Contact Button */}
                         <motion.button
                             className={`hidden md:block relative z-[250] text-sm font-medium transition-colors ${isMenuOpen
                                 ? 'text-white/60 hover:text-white'
@@ -205,60 +210,141 @@ export function Header({ onContactClick }: HeaderProps) {
                         className="fixed inset-0 z-[190] bg-[var(--accent-primary)]"
                     >
                         <div className="container h-full flex flex-col justify-center pt-20">
-                            {/* Navigation Links */}
+                            {/* Navigation Links with Accent Slide */}
                             <nav className="flex flex-col gap-2">
-                                {navLinks.map((link, index) => (
-                                    <div key={link.href} className="overflow-hidden">
-                                        <Link
-                                            href={link.href}
-                                            onClick={handleLinkClick}
-                                            className="menu-link block group"
-                                        >
-                                            <div className="flex items-baseline gap-4">
-                                                <span className="text-white/30 text-lg font-medium">
-                                                    0{index + 1}
-                                                </span>
-                                                <motion.span
-                                                    className="font-display text-[clamp(2.5rem,8vw,6rem)] font-bold text-white leading-none"
-                                                    whileHover={{ x: 20 }}
-                                                    transition={{ duration: 0.3 }}
-                                                >
-                                                    {linkKeys[link.href] ? getTranslatedLabel(linkKeys[link.href]) : link.label}
-                                                </motion.span>
-                                            </div>
-                                        </Link>
+                                {allMenuItems.map((item, index) => (
+                                    <div key={item.href} className="overflow-hidden">
+                                        {item.type === 'link' ? (
+                                            <Link
+                                                href={item.href}
+                                                onClick={handleLinkClick}
+                                                className="menu-link block group/link relative"
+                                                onMouseEnter={() => setHoveredIndex(index)}
+                                                onMouseLeave={() => setHoveredIndex(null)}
+                                            >
+                                                <div className="flex items-baseline gap-4 relative">
+                                                    {/* Accent bar that slides in */}
+                                                    <motion.div
+                                                        className="absolute left-0 top-1/2 -translate-y-1/2 w-1 rounded-full bg-white"
+                                                        initial={{ height: 0, x: -20, opacity: 0 }}
+                                                        animate={{
+                                                            height: hoveredIndex === index ? '60%' : 0,
+                                                            x: hoveredIndex === index ? -16 : -20,
+                                                            opacity: hoveredIndex === index ? 1 : 0,
+                                                        }}
+                                                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                                                    />
+
+                                                    <motion.span
+                                                        className="text-white/30 text-lg font-medium"
+                                                        animate={{
+                                                            opacity: hoveredIndex === index ? 1 : 0.3,
+                                                            x: hoveredIndex === index ? 4 : 0,
+                                                        }}
+                                                        transition={{ duration: 0.3 }}
+                                                    >
+                                                        0{index + 1}
+                                                    </motion.span>
+
+                                                    <motion.span
+                                                        className="font-display text-[clamp(2.5rem,8vw,6rem)] font-bold text-white leading-none"
+                                                        animate={{
+                                                            x: hoveredIndex === index ? 20 : 0,
+                                                            skewX: hoveredIndex === index ? -2 : 0,
+                                                        }}
+                                                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                                                    >
+                                                        {item.label}
+                                                    </motion.span>
+
+                                                    {/* Arrow that appears on hover */}
+                                                    <motion.span
+                                                        className="absolute right-0 top-1/2 -translate-y-1/2"
+                                                        initial={{ opacity: 0, x: -20 }}
+                                                        animate={{
+                                                            opacity: hoveredIndex === index ? 0.6 : 0,
+                                                            x: hoveredIndex === index ? 0 : -20,
+                                                        }}
+                                                        transition={{ duration: 0.3 }}
+                                                    >
+                                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                                            <line x1="5" y1="12" x2="19" y2="12" />
+                                                            <polyline points="12 5 19 12 12 19" />
+                                                        </svg>
+                                                    </motion.span>
+                                                </div>
+                                            </Link>
+                                        ) : (
+                                            <button
+                                                onClick={() => {
+                                                    handleLinkClick();
+                                                    setTimeout(() => {
+                                                        const event = new CustomEvent('openContactModal');
+                                                        window.dispatchEvent(event);
+                                                    }, 400);
+                                                }}
+                                                className="menu-link block group/link text-left relative"
+                                                onMouseEnter={() => setHoveredIndex(index)}
+                                                onMouseLeave={() => setHoveredIndex(null)}
+                                            >
+                                                <div className="flex items-baseline gap-4 relative">
+                                                    {/* Accent bar that slides in */}
+                                                    <motion.div
+                                                        className="absolute left-0 top-1/2 -translate-y-1/2 w-1 rounded-full bg-white"
+                                                        initial={{ height: 0, x: -20, opacity: 0 }}
+                                                        animate={{
+                                                            height: hoveredIndex === index ? '60%' : 0,
+                                                            x: hoveredIndex === index ? -16 : -20,
+                                                            opacity: hoveredIndex === index ? 1 : 0,
+                                                        }}
+                                                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                                                    />
+
+                                                    <motion.span
+                                                        className="text-white/30 text-lg font-medium"
+                                                        animate={{
+                                                            opacity: hoveredIndex === index ? 1 : 0.3,
+                                                            x: hoveredIndex === index ? 4 : 0,
+                                                        }}
+                                                        transition={{ duration: 0.3 }}
+                                                    >
+                                                        0{index + 1}
+                                                    </motion.span>
+
+                                                    <motion.span
+                                                        className="font-display text-[clamp(2.5rem,8vw,6rem)] font-bold text-white leading-none"
+                                                        animate={{
+                                                            x: hoveredIndex === index ? 20 : 0,
+                                                            skewX: hoveredIndex === index ? -2 : 0,
+                                                        }}
+                                                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                                                    >
+                                                        {item.label}
+                                                    </motion.span>
+
+                                                    {/* Arrow on hover */}
+                                                    <motion.span
+                                                        className="absolute right-0 top-1/2 -translate-y-1/2"
+                                                        initial={{ opacity: 0, x: -20 }}
+                                                        animate={{
+                                                            opacity: hoveredIndex === index ? 0.6 : 0,
+                                                            x: hoveredIndex === index ? 0 : -20,
+                                                        }}
+                                                        transition={{ duration: 0.3 }}
+                                                    >
+                                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                                            <line x1="5" y1="12" x2="19" y2="12" />
+                                                            <polyline points="12 5 19 12 12 19" />
+                                                        </svg>
+                                                    </motion.span>
+                                                </div>
+                                            </button>
+                                        )}
                                     </div>
                                 ))}
-
-                                {/* Contact - Abre modal em vez de navegar */}
-                                <div className="overflow-hidden">
-                                    <button
-                                        onClick={() => {
-                                            handleLinkClick();
-                                            setTimeout(() => {
-                                                const event = new CustomEvent('openContactModal');
-                                                window.dispatchEvent(event);
-                                            }, 400);
-                                        }}
-                                        className="menu-link block group text-left"
-                                    >
-                                        <div className="flex items-baseline gap-4">
-                                            <span className="text-white/30 text-lg font-medium">
-                                                0{navLinks.length + 1}
-                                            </span>
-                                            <motion.span
-                                                className="font-display text-[clamp(2.5rem,8vw,6rem)] font-bold text-white leading-none"
-                                                whileHover={{ x: 20 }}
-                                                transition={{ duration: 0.3 }}
-                                            >
-                                                {t('nav.contact') as string || 'Contact'}
-                                            </motion.span>
-                                        </div>
-                                    </button>
-                                </div>
                             </nav>
 
-                            {/* Menu Footer - Com dados reais */}
+                            {/* Menu Footer */}
                             <div className="menu-footer mt-auto pb-12 flex flex-col md:flex-row md:items-end justify-between gap-8 opacity-0">
                                 <div>
                                     <p className="text-white/60 text-sm mb-2">{t('header.email') as string || 'Email'}</p>

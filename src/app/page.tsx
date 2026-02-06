@@ -1,17 +1,4 @@
-/**
- * ============================================
- * HOME PAGE - Estilo 1minus1.com
- * ============================================
- * 
- * Estrutura simplificada:
- * 1. Hero com Showreel
- * 2. Services Grid
- * 3. Stats
- * 4. Featured Cases
- * 5. Clients (simplificado)
- * 
- * Contato agora é modal fullscreen (ContactModal)
- */
+'use client';
 
 import {
   Hero,
@@ -20,24 +7,40 @@ import {
   FeaturedCases,
   Clients,
 } from '@/components/sections';
+import { JourneyDots } from '@/components/ui';
+
+const homeSections = [
+  { id: 'hero', label: 'Home' },
+  { id: 'services', label: 'Services' },
+  { id: 'stats', label: 'Results' },
+  { id: 'cases', label: 'Work' },
+  { id: 'clients', label: 'Clients' },
+];
 
 export default function HomePage() {
   return (
     <>
-      {/* Hero com Showreel */}
-      <Hero />
+      <JourneyDots sections={homeSections} />
 
-      {/* Services Preview */}
-      <Services />
+      <div id="hero">
+        <Hero />
+      </div>
 
-      {/* Stats - Resultados */}
-      <Stats />
+      <div id="services">
+        <Services />
+      </div>
 
-      {/* Featured Cases - Grid */}
-      <FeaturedCases />
+      <div id="stats">
+        <Stats />
+      </div>
 
-      {/* Clients - Nichos */}
-      <Clients />
+      <div id="cases">
+        <FeaturedCases />
+      </div>
+
+      <div id="clients">
+        <Clients />
+      </div>
     </>
   );
 }

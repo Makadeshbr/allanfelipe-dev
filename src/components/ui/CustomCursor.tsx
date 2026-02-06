@@ -15,6 +15,7 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 export function CustomCursor() {
     const cursorRef = useRef<HTMLDivElement>(null);
+    const magneticRef = useRef<HTMLElement | null>(null);
     const [isHovering, setIsHovering] = useState(false);
     const [cursorText, setCursorText] = useState('');
     const [isVisible, setIsVisible] = useState(false);
@@ -36,6 +37,17 @@ export function CustomCursor() {
             cursorX.set(e.clientX);
             cursorY.set(e.clientY);
             setIsVisible(true);
+
+            // Magnetic pull on hovered element
+            if (magneticRef.current) {
+                const rect = magneticRef.current.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const deltaX = (e.clientX - centerX) * 0.25;
+                const deltaY = (e.clientY - centerY) * 0.25;
+                magneticRef.current.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+                magneticRef.current.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+            }
         };
 
         const handleMouseDown = () => setIsClicking(true);
@@ -49,12 +61,18 @@ export function CustomCursor() {
                 setIsHovering(true);
                 const customText = interactive.getAttribute('data-cursor') || 'View';
                 setCursorText(customText);
+                magneticRef.current = interactive as HTMLElement;
             }
         };
 
         const handleMouseLeave = () => {
             setIsHovering(false);
             setCursorText('');
+            if (magneticRef.current) {
+                magneticRef.current.style.transform = '';
+                magneticRef.current.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                magneticRef.current = null;
+            }
         };
 
         const handleMouseOut = () => {
