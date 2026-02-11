@@ -117,7 +117,7 @@ export function ShowreelModal({ isOpen, onClose }: ShowreelModalProps) {
                         >
                             {/* Using a public sample video */}
                             <source
-                                src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                                src="/videos/PromoVideoBarberSite.mp4"
                                 type="video/mp4"
                             />
                             Seu navegador não suporta o elemento de vídeo.
