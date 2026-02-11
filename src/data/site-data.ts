@@ -69,15 +69,15 @@ export const projects: Project[] = [
         gradient: 'from-blue-600/40 to-indigo-600/30'
     },
     {
-        id: 'ecommerce-platform',
-        title: 'Premium E-commerce',
-        subtitle: 'Loja Virtual',
-        description: 'Plataforma de vendas online com experiência de compra otimizada.',
-        image: '/images/cases/ecommerce.png',
-        tags: ['Next.js', 'Stripe', 'Prisma'],
-        category: 'fullstack',
+        id: 'barbershop-site',
+        title: 'BarberShop Site',
+        subtitle: 'Site para Barbearia',
+        description: 'Site profissional para barbearia com sistema de agendamento, galeria de serviços e design premium.',
+        image: '/images/cases/BarberSite1.png',
+        tags: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+        category: 'web',
         featured: true,
-        gradient: 'from-violet-600/40 to-purple-600/30'
+        gradient: 'from-amber-600/40 to-yellow-600/30'
     },
     {
         id: 'dashboard-analytics',

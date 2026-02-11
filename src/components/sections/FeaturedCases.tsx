@@ -23,11 +23,11 @@ const casesData = [
         image: '/images/cases/mobile.png'
     },
     {
-        id: 'ecommerce-platform',
-        translationKey: 'ecommerce',
-        tags: ['Next.js', 'Stripe'],
-        gradient: 'from-violet-600/40 to-purple-600/30',
-        image: '/images/cases/ecommerce.png'
+        id: 'barbershop-site',
+        translationKey: 'barbershop',
+        tags: ['Next.js', 'TypeScript'],
+        gradient: 'from-amber-600/40 to-yellow-600/30',
+        image: '/images/cases/BarberSite1.png'
     },
     {
         id: 'dashboard-analytics',

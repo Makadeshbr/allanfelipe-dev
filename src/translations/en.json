@@ -109,9 +109,9 @@
                 "title": "Management App",
                 "description": "Complete task and team management system focused on productivity."
             },
-            "ecommerce": {
-                "title": "Premium E-commerce",
-                "description": "Online sales platform with optimized shopping experience."
+            "barbershop": {
+                "title": "BarberShop Site",
+                "description": "Professional barbershop website with online scheduling, service gallery and premium design."
             },
             "dashboard": {
                 "title": "Analytics Dashboard",

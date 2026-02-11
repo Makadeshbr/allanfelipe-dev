@@ -24,11 +24,11 @@ const sliderCases = [
         gradient: 'from-blue-600/50 to-indigo-700/40',
     },
     {
-        id: 'ecommerce-platform',
-        title: 'E-commerce Premium',
-        client: 'Fashion Store',
-        description: 'Loja virtual com checkout otimizado',
-        gradient: 'from-violet-600/50 to-purple-700/40',
+        id: 'barbershop-site',
+        title: 'BarberShop Site',
+        client: 'Império Barbearia',
+        description: 'Site profissional com agendamento online',
+        gradient: 'from-amber-600/50 to-yellow-700/40',
     },
     {
         id: 'saas-platform',

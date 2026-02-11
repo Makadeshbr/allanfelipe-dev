@@ -109,9 +109,9 @@
                 "title": "App de Gerenciamento",
                 "description": "Sistema completo de gestão de tarefas e equipes com foco em produtividade."
             },
-            "ecommerce": {
-                "title": "E-commerce Premium",
-                "description": "Plataforma de vendas online com experiência de compra otimizada."
+            "barbershop": {
+                "title": "BarberShop Site",
+                "description": "Site profissional para barbearia com agendamento online, galeria de serviços e design premium."
             },
             "dashboard": {
                 "title": "Analytics Dashboard",
